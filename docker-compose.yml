@@ -1,0 +1,26 @@
+services:
+  crossing:
+    build: .
+    expose: ["8080"]
+    env_file: .env
+    environment:
+      PORT: 8080
+      CROSSING_CONFIG_PATH: /data/crossing.config.yaml
+      CROSSING_DATA_DIR: /data
+    volumes:
+      - crossing-data:/data
+    restart: unless-stopped
+    networks:
+      - default
+      - hermes
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:8080/healthz').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+volumes:
+  crossing-data:
+networks:
+  hermes:
+    external: true
+    name: ${HERMES_DOCKER_NETWORK:-hermes_default}
