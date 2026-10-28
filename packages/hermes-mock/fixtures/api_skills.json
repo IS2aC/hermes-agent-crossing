@@ -1,0 +1,109 @@
+{
+  "request": "GET {API}/v1/skills",
+  "status": 200,
+  "body": {
+    "object": "list",
+    "data": [
+      {
+        "name": "dogfood",
+        "description": "Exploratory QA of web apps: find bugs, evidence, reports.",
+        "category": null
+      },
+      {
+        "name": "test",
+        "description": "test",
+        "category": null
+      },
+      {
+        "name": "workaround-methodology",
+        "description": "Create actionable guides when automated execution fails due to technical limitations",
+        "category": null
+      },
+      {
+        "name": "yuanbao",
+        "description": "Yuanbao (元宝) groups: @mention users, query info/members.",
+        "category": null
+      },
+      {
+        "name": "claude-code",
+        "description": "Delegate coding to Claude Code CLI (features, PRs).",
+        "category": "autonomous-ai-agents"
+      },
+      {
+        "name": "codex",
+        "description": "Delegate coding to OpenAI Codex CLI (features, PRs).",
+        "category": "autonomous-ai-agents"
+      },
+      {
+        "name": "hermes-agent",
+        "description": "Configure, extend, or contribute to Hermes Agent.",
+        "category": "autonomous-ai-agents"
+      },
+      {
+        "name": "hermes-audio-config",
+        "description": "Configure STT (Speech-to-Text) and TTS (Text-to-Speech) in Hermes Agent, including custom providers for Docker deployments.",
+        "category": "autonomous-ai-agents"
+      },
+      {
+        "name": "hermes-multi-profile-orchestration",
+        "description": "Orchestrate multiple Hermes profiles as specialized sub-agents. Each profile is a full Hermes instance with its own SOUL.md, config, skills, cron, and session history.",
+        "category": "autonomous-ai-agents"
+      },
+      {
+        "name": "opencode",
+        "description": "Delegate coding to OpenCode CLI (features, PR review).",
+        "category": "autonomous-ai-agents"
+      },
+      {
+        "name": "architecture-diagram",
+        "description": "Dark-themed SVG architecture/cloud/infra diagrams as HTML.",
+        "category": "creative"
+      },
+      {
+        "name": "ascii-art",
+        "description": "ASCII art: pyfiglet, cowsay, boxes, image-to-ascii.",
+        "category": "creative"
+      },
+      {
+        "name": "ascii-video",
+        "description": "ASCII video: convert video/audio to colored ASCII MP4/GIF.",
+        "category": "creative"
+      },
+      {
+        "name": "baoyu-infographic",
+        "description": "Infographics: 21 layouts x 21 styles (信息图, 可视化).",
+        "category": "creative"
+      },
+      {
+        "name": "claude-design",
+        "description": "Design one-off HTML artifacts (landing, deck, prototype).",
+        "category": "creative"
+      },
+      {
+        "name": "comfyui",
+        "description": "Generate images, video, and audio with ComfyUI — install, launch, manage nodes/models, run workflows with parameter injection. Uses the official comfy-cli for lifecycle and direct REST/WebSocket API for execution.",
+        "category": "creative"
+      },
+      {
+        "name": "design-md",
+        "description": "Author/validate/export Google's DESIGN.md token spec files.",
+        "category": "creative"
+      },
+      {
+        "name": "excalidraw",
+        "description": "Hand-drawn Excalidraw JSON diagrams (arch, flow, seq).",
+        "category": "creative"
+      },
+      {
+        "name": "humanizer",
+        "description": "Humanize text: strip AI-isms and add real voice.",
+        "category": "creative"
+      },
+      {
+        "name": "manim-video",
+        "description": "Manim CE animations: 3Blue1Brown math/algo videos.",
+        "category": "creative"
+      }
+    ]
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "request": "GET {DASHBOARD}/api/plugins/kanban/config",
+  "status": 200,
+  "body": {
+    "default_tenant": "",
+    "lane_by_profile": true,
+    "include_archived_by_default": false,
+    "render_markdown": true
+  }
+}

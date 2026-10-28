@@ -1,0 +1,228 @@
+{
+  "request": "GET {API}/v1/toolsets",
+  "status": 200,
+  "body": {
+    "object": "list",
+    "platform": "api_server",
+    "data": [
+      {
+        "name": "web",
+        "label": "🔍 Web Search & Scraping",
+        "description": "web_search, web_extract",
+        "enabled": true,
+        "configured": true,
+        "tools": [
+          "web_extract",
+          "web_search"
+        ]
+      },
+      {
+        "name": "browser",
+        "label": "🌐 Browser Automation",
+        "description": "navigate, click, type, scroll",
+        "enabled": true,
+        "configured": true,
+        "tools": [
+          "browser_back",
+          "browser_cdp",
+          "browser_click",
+          "browser_console",
+          "browser_dialog",
+          "browser_get_images",
+          "browser_navigate",
+          "browser_press",
+          "browser_scroll",
+          "browser_snapshot",
+          "browser_type",
+          "browser_vision",
+          "web_search"
+        ]
+      },
+      {
+        "name": "terminal",
+        "label": "💻 Terminal & Processes",
+        "description": "terminal, process",
+        "enabled": false,
+        "configured": true,
+        "tools": [
+          "process",
+          "read_terminal",
+          "terminal"
+        ]
+      },
+      {
+        "name": "file",
+        "label": "📁 File Operations",
+        "description": "read, write, patch, search",
+        "enabled": true,
+        "configured": true,
+        "tools": [
+          "patch",
+          "read_file",
+          "search_files",
+          "write_file"
+        ]
+      },
+      {
+        "name": "code_execution",
+        "label": "⚡ Code Execution",
+        "description": "execute_code",
+        "enabled": true,
+        "configured": true,
+        "tools": [
+          "execute_code"
+        ]
+      },
+      {
+        "name": "vision",
+        "label": "👁️  Vision / Image Analysis",
+        "description": "vision_analyze",
+        "enabled": true,
+        "configured": true,
+        "tools": [
+          "vision_analyze"
+        ]
+      },
+      {
+        "name": "video",
+        "label": "🎬 Video Analysis",
+        "description": "video_analyze (requires video-capable model)",
+        "enabled": false,
+        "configured": true,
+        "tools": [
+          "video_analyze"
+        ]
+      },
+      {
+        "name": "image_gen",
+        "label": "🎨 Image Generation",
+        "description": "image_generate",
+        "enabled": true,
+        "configured": true,
+        "tools": [
+          "image_generate"
+        ]
+      },
+      {
+        "name": "video_gen",
+        "label": "🎬 Video Generation",
+        "description": "video_generate (text-to-video + image-to-video)",
+        "enabled": false,
+        "configured": true,
+        "tools": [
+          "video_generate"
+        ]
+      },
+      {
+        "name": "x_search",
+        "label": "🐦 X (Twitter) Search",
+        "description": "x_search (requires xAI OAuth or XAI_API_KEY)",
+        "enabled": false,
+        "configured": true,
+        "tools": [
+          "x_search"
+        ]
+      },
+      {
+        "name": "moa",
+        "label": "🧠 Mixture of Agents",
+        "description": "mixture_of_agents",
+        "enabled": false,
+        "configured": false,
+        "tools": [
+          "mixture_of_agents"
+        ]
+      },
+      {
+        "name": "tts",
+        "label": "🔊 Text-to-Speech",
+        "description": "text_to_speech",
+        "enabled": false,
+        "configured": true,
+        "tools": [
+          "text_to_speech"
+        ]
+      },
+      {
+        "name": "skills",
+        "label": "📚 Skills",
+        "description": "list, view, manage",
+        "enabled": true,
+        "configured": true,
+        "tools": [
+          "skill_manage",
+          "skill_view",
+          "skills_list"
+        ]
+      },
+      {
+        "name": "todo",
+        "label": "📋 Task Planning",
+        "description": "todo",
+        "enabled": true,
+        "configured": true,
+        "tools": [
+          "todo"
+        ]
+      },
+      {
+        "name": "memory",
+        "label": "💾 Memory",
+        "description": "persistent memory across sessions",
+        "enabled": true,
+        "configured": true,
+        "tools": [
+          "memory"
+        ]
+      },
+      {
+        "name": "context_engine",
+        "label": "🧩 Context Engine",
+        "description": "runtime tools from the active context engine",
+        "enabled": false,
+        "configured": true,
+        "tools": []
+      },
+      {
+        "name": "session_search",
+        "label": "🔎 Session Search",
+        "description": "search past conversations",
+        "enabled": true,
+        "configured": true,
+        "tools": [
+          "session_search"
+        ]
+      },
+      {
+        "name": "clarify",
+        "label": "❓ Clarifying Questions",
+        "description": "clarify",
+        "enabled": false,
+        "configured": true,
+        "tools": [
+          "clarify"
+        ]
+      },
+      {
+        "name": "delegation",
+        "label": "👥 Task Delegation",
+        "description": "delegate_task",
+        "enabled": true,
+        "configured": true,
+        "tools": [
+          "delegate_task"
+        ]
+      },
+      {
+        "name": "cronjob",
+        "label": "⏰ Cron Jobs",
+        "description": "create/list/update/pause/resume/run, with optional attached skills",
+        "enabled": true,
+        "configured": true,
+        "tools": [
+          "cronjob"
+        ]
+      }
+    ]
+  }
+}

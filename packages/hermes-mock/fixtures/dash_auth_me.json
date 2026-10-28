@@ -1,0 +1,12 @@
+{
+  "request": "GET {DASHBOARD}/api/auth/me",
+  "status": 200,
+  "body": {
+    "user_id": "admin",
+    "email": "",
+    "display_name": "admin",
+    "org_id": "",
+    "provider": "basic",
+    "expires_at": 1793244616
+  }
+}
