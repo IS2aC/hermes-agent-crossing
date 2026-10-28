@@ -1,0 +1,11 @@
+MOCKUP: kanban (Vue Kanban)
+Scale: 3x (1920x1440 pixels)
+Content: Vue plein écran du Kanban par-dessus le monde (monde en arrière-plan flouté):
+- Colonnes: triage, todo, ready, running, blocked, review, done (+ archived optionnel)
+- Sélecteur de board et filtres (assigné/team/tenant)
+- Cartes: titre, avatar pixel de l'assigné, priorité, badges (bloqué, PR, commentaires), âge
+- Style: Fenêtre 9-sixel pixel, fond navy #1e2952, accents selon les couleurs de team
+- Boutons: Ajouter une carte, filtres, sélecteur de board
+- Icônes: Badges colorés selon l'état
+- Typographie: PixelOperator pour les titres de carte, Inter pour les descriptions
+- Interaction: Glisser-déposer visible avec feedback visuel

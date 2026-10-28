@@ -1,0 +1,20 @@
+MOCKUP: vue_god.png (Vue God)
+Scale: 3x (1920x1440 pixels)
+This PNG file should contain the complete God view of the virtual office.
+
+CONTENT TO INCLUDE:
+- Hall d'entrée avec mascotte et logo Crossing
+- Bureau privé de Jarvis (à gauche) 
+- Open space Team Dev (poste manager + 4 postes)
+- Open space général 
+- Salle Kanban avec tableau mural
+- Coffee corner avec machine à café et canapé
+- Salle serveurs avec baies et voyants
+- Couloirs reliant les zones
+- Style: Pixel art frais et calme, palette Fresh & Calm
+- Éclairage: Jour lumineux
+- Agents visibles en train de travailler
+- Icônes d'état visibles au-dessus des agents selon leur état
+- Mini-carte en bas-gauche (optionnel dans cette vue)
+
+REFERENCE: docs/DESIGN_SYSTEM.md pour palette et règles de style
