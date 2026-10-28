@@ -1,0 +1,7 @@
+{
+  "request": "GET {API}/p/x/health",
+  "status": 404,
+  "body": {
+    "_non_json": "404: Not Found"
+  }
+}

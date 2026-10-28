@@ -1,0 +1,34 @@
+{
+  "request": "GET {DASHBOARD}/api/status",
+  "status": 200,
+  "body": {
+    "version": "0.17.0",
+    "release_date": "2026.6.19",
+    "config_version": 30,
+    "latest_config_version": 30,
+    "can_update_hermes": false,
+    "gateway_running": true,
+    "gateway_state": "running",
+    "gateway_platforms": {
+      "telegram": {
+        "state": "connected",
+        "error_code": null,
+        "error_message": null,
+        "updated_at": "2026-10-22T11:34:22.986071+00:00"
+      },
+      "api_server": {
+        "state": "connected",
+        "error_code": null,
+        "error_message": null,
+        "updated_at": "2026-10-22T11:34:23.106795+00:00"
+      }
+    },
+    "gateway_exit_reason": null,
+    "gateway_updated_at": "2026-10-22T11:34:23.108773+00:00",
+    "active_sessions": 0,
+    "auth_required": true,
+    "auth_providers": [
+      "basic"
+    ]
+  }
+}

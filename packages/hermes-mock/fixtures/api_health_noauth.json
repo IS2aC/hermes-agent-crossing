@@ -1,0 +1,9 @@
+{
+  "request": "GET {API}/health",
+  "status": 200,
+  "body": {
+    "status": "ok",
+    "platform": "hermes-agent",
+    "version": "0.17.0"
+  }
+}

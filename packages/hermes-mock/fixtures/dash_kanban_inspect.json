@@ -1,0 +1,7 @@
+{
+  "request": "GET {DASHBOARD}/api/plugins/kanban/inspect?board=hermes-agent-crossing",
+  "status": 404,
+  "body": {
+    "detail": "No such API endpoint: /api/plugins/kanban/inspect"
+  }
+}

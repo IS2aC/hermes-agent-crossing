@@ -1,0 +1,10 @@
+{
+  "request": "GET {DASHBOARD}/api/profiles",
+  "status": 401,
+  "body": {
+    "error": "unauthenticated",
+    "detail": "Unauthorized",
+    "reason": "no_cookie",
+    "login_url": "/login"
+  }
+}

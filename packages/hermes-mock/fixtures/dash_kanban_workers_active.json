@@ -1,0 +1,9 @@
+{
+  "request": "GET {DASHBOARD}/api/plugins/kanban/workers/active?board=hermes-agent-crossing",
+  "status": 200,
+  "body": {
+    "workers": [],
+    "count": 0,
+    "checked_at": 1793201417
+  }
+}

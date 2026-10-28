@@ -1,0 +1,8 @@
+{
+  "request": "POST {DASHBOARD}/auth/password-login",
+  "status": 200,
+  "body": {
+    "ok": true,
+    "next": "/"
+  }
+}
