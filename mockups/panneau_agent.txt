@@ -1,0 +1,9 @@
+MOCKUP: panneau_agent (Panneau agent)
+Scale: 3x (960x1440 pixels)
+Content: Panneau latéral pixel avec onglets:
+- Onglet Protrait actif: portrait 48x48 de l'agent, nom, profil, rôle, team, état actuel, tâche en cours
+- Onglet Chat: liste des sessions, bouton nouvelle session, zone de saisie message
+- Design: Fenêtre 9-slice, fond navy #1e2952 à 70% opacité, bordure blanche
+- Boutons: Style pixel avec états normal/hover/pressed/disabled
+- Typographie: PixelOperator pour les titres, Inter pour le texte long
+- Icônes d'état: Animées 16x16 en fonction de l'état de l'agent
