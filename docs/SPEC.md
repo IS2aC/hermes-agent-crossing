@@ -352,13 +352,26 @@ Voir `crossing.config.example.yaml`. Il décrit **les teams, les bureaux, les r�
 ## 8. Design system (résumé — détaillé en phase 3 dans `docs/DESIGN_SYSTEM.md`)
 
 - **Grille** : tuiles 16×16, personnages 16×32 (tête+corps), rendu à l'échelle entière ×2/×3/×4, `pixelArt: true`, `roundPixels: true`.
-- **Palette** « Fresh & Calm » (32 couleurs max) : base crème/bois clair, verts sauge et menthe pour les plantes, bleus doux pour verre et écrans, accents corail (alertes), jaune miel (attention), lavande (IA). Contraste texte ≥ 4.5:1 dans les panneaux.
+- **Palette officielle v1** (32 couleurs max = 24 actives + 8 réservées) : extraite de la maquette officielle, fichier `assets-src/palette.gpl`.
+  - Couleurs principales : encre `#0f0d11`, navy `#1e2952` (panneaux, enseignes), ardoise `#2a2a39`, violet nuit `#443467`, acier `#737e7e`, gris clair `#9a98a4`, crème `#d4cec0`, blanc `#ffffff`.
+  - Sols : principal `#dbb3a0`, clair `#f8cfa8`.
+  - Bois : `#c8804c` / sombre `#73451d`.
+  - Accents : orange `#f79b39` (CROSSING, dégradé/bloqué), miel `#ffca4e` (lampes, approbation), rouge `#e32137` (**touché / down**), lavande `#a39cff` (IA, réflexion), vert feuille claire `#74b100` (OK).
+  - Végétation : vert profond `#054555`, sauge `#38633b`, feuille `#479b29`.
+  - Écrans : teal sombre `#054555`, bleu `#0a71b7`, ciel `#6fbefb`, cyan néon `#30f5ff` (yeux mascotte, icônes enseignes, texte néon).
+  - Réserve (8) : `#f896c5` `#6b82e4` `#fd7a61` `#dcb9f4` `#9cc7c7` `#b2727d` `#ffeeac` `#6b5552` (couleurs de team, extensions).
+  - **Team Dev par défaut** = cyan néon `#30f5ff`.
 - **Couleur par team** : liseré au sol de l'open space + panneau suspendu + badge sur la carte Kanban.
-- **Typo** : police pixel libre (OFL), lisible à 8 px de base ; fallback système pour les textes longs (chat, descriptions) afin de garantir la lisibilité.
-- **Icônes d'état** 16×16 animées : travail (clavier), réflexion (…), pause (tasse), réunion (bulle), bloqué (⚠), approbation (main), **touché** (pansement + étoiles), dégradé (nuage), inconnu (?).
-- **UI** : fenêtres à bordure pixel 9-slice, boutons à 3 états, ombres portées 1 px. Thème clair par défaut, thème nuit (le cycle jour/nuit l'active).
-- **Son** (optionnel, off par défaut) : bips doux, aucun son tiré d'un jeu existant.
-- **Accessibilité** : tout ce qui est cliquable dans le monde l'est aussi via une **liste latérale d'agents** (clavier + lecteur d'écran) ; `prefers-reduced-motion` réduit les déplacements.
+- **Typo** : **PixelOperator** (titres, boutons, HUD, enseignes) ; **Inter** (OFL) pour textes longs (chat, descriptions) ; **JetBrains Mono** pour code.
+- **Icônes d'état** 16×16 animées : travail (clavier), réflexion (…), pause (tasse), réunion (bulle), bloqué (⚠), approbation (main), **touché** (pansement + étoiles tournantes, rouge `#e32137`), dégradé (nuage, orange `#f79b39`), inconnu (?).
+- **UI** : fenêtres à bordure pixel 9-slice, boutons à 3 états, ombres portées 1 px. Thème clair par défaut, thème nuit (cycle jour/nuit l'active).
+- **Mini-carte** (v1) : caméra secondaire Phaser dans la même scène (zoom ~0.15), coin bas-gauche, cadre 9-slice, rectangle de la vue courante, clic = déplacer caméra principale, points colorés par état d'agent (rouge clignotant = touché). Repliable touche `M`.
+- **Mascotte** : petit robot blanc yeux cyan + aile dorée (clin d'œil casque ailé d'Hermès), redessinée en original par `designer`. Présente à l'accueil central comme guide animé (clignement, flottement), pas un agent.
+- **PNJ chat roux** : décoratif dans le lounge, dort et se déplace parfois. Désactivable dans les préférences.
+- **Enseignes de zone** : panneau navy `#1e2952` coins arrondis, icône cyan + texte blanc PixelOperator. Texte = nom team/pièce dans la config (ex. maquette : Agent Development, LLM & Inference… = exemples).
+- **Mur végétal néon** : slogan configurable (`instance.slogan`, défaut « Open Agents Better Workflows »).
+- **Son** (optionnel, off par défaut) : 3 bips maison, aucun son tiré d'un jeu existant.
+- **Accessibilité** : WCAG 2.1 AA sur les panneaux React. Monde Phaser en best effort, liste latérale d'agents obligatoire comme alternative accessible (clavier + lecteur d'écran) ; `prefers-reduced-motion` réduit les déplacements.
 
 ---
 
