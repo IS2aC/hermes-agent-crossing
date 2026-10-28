@@ -40,7 +40,8 @@ Les routes ci-dessous sont enregistrées dans `/opt/hermes/gateway/platforms/api
 
 Aucun endpoint API server observé ne permet de choisir un profil différent pour chaque requête. Le préfixe `/p/<profile>/…` n'est pas supporté dans cette version (constat 404 de l'instance pour `/p/x/health` et `/p/x/v1/capabilities`). Par conséquent, le BFF ne doit pas construire ces URLs ni envoyer des clés de profil différentes en supposant que le serveur commute le runtime.
 
-Pour le v1, traiter l'API server comme un unique agent interactif, et afficher les profils découverts par le dashboard en lecture seule tant qu'un transport explicitement profil-aware n'est pas disponible. Une instance API server séparée, lancée dans le contexte/configuration de chaque profil, est une possibilité de déploiement à valider avant implémentation; ce n'est pas un contrat de l'API actuelle. Voir `docs/adr/ADR-001-profile-chat.md`.
+- Pour le v1, un client API server dédié par profil est autorisé par ADR-002 : démarrer une instance Hermes séparée dans le contexte/configuration du profil, avec un port et une clé dédiés. Ne pas construire `/p/<profile>/…`; sans endpoint + clé propre, afficher le profil en lecture seule. Pour chaque profil activer `API_SERVER_ENABLED=true`, définir `API_SERVER_PORT` (port différent par instance) et `API_SERVER_KEY` dans son `.env`; restreindre l’écoute au réseau privé Crossing. Configurer `HERMES_API_URL_<PROFILE>` et `HERMES_KEY_<PROFILE>` dans Crossing (profil en majuscules, tirets en `_`). Le profil `default` accepte aussi `HERMES_API_URL` et `HERMES_API_KEY`. Voir `docs/adr/ADR-002-profile-api-clients.md`.
+
 
 ## Dashboard API
 

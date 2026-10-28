@@ -8,5 +8,8 @@ describe('mock fixtures', () => {
     const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
     const health = JSON.parse(await readFile(path.join(root, 'fixtures/api_health_noauth.json'), 'utf8')) as Record<string, unknown>;
     expect(health).toBeTypeOf('object');
+    expect(health).toHaveProperty('body');
+    const response = health.body as Record<string, unknown>;
+    expect(response.status).toBe('ok');
   });
 });
