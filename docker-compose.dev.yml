@@ -1,0 +1,36 @@
+services:
+  crossing:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      NODE_ENV: development
+      PORT: 8080
+      CROSSING_ADMIN_PASSWORD_HASH: ${CROSSING_ADMIN_PASSWORD_HASH:-dev-password-hash}
+      CROSSING_SESSION_SECRET: ${CROSSING_SESSION_SECRET:-development-only-change-me-32chars}
+      CROSSING_CONFIG_PATH: /data/crossing.config.yaml
+      HERMES_API_URL: http://hermes-mock:8642
+      HERMES_DASHBOARD_URL: http://hermes-mock:9119
+    volumes:
+      - crossing-data:/data
+    depends_on:
+      hermes-mock:
+        condition: service_started
+  hermes-mock:
+    build:
+      context: .
+      target: build
+    command: ["pnpm", "--filter", "@crossing/hermes-mock", "dev"]
+    ports:
+      - "8642:8642"
+      - "9119:9119"
+    environment:
+      PORT: 8642
+      DASHBOARD_PORT: 9119
+      MOCK_SCENARIO: ${MOCK_SCENARIO:-nominal}
+    volumes:
+      - .:/app
+      - mock-node-modules:/app/node_modules
+volumes:
+  crossing-data:
+  mock-node-modules:

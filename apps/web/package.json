@@ -1,0 +1,16 @@
+{
+  "name": "@crossing/web",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "tsc --noEmit -p tsconfig.app.json && vite build",
+    "lint": "eslint src",
+    "typecheck": "tsc --noEmit -p tsconfig.app.json",
+    "test": "vitest run",
+    "test:e2e": "playwright test"
+  },
+  "dependencies": { "@crossing/shared": "workspace:*", "@vitejs/plugin-react": "^4.3.4", "phaser": "^3.88.2", "react": "^18.3.1", "react-dom": "^18.3.1", "vite": "^6.1.0" },
+  "devDependencies": { "@playwright/test": "^1.50.1", "@types/react": "^18.3.18", "@types/react-dom": "^18.3.5", "typescript": "^5.7.3", "vitest": "^3.0.5" }
+}

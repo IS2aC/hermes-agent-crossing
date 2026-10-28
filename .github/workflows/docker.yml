@@ -1,0 +1,52 @@
+name: Docker
+on:
+  push:
+    tags: ['v*']
+permissions:
+  contents: read
+  packages: write
+jobs:
+  verify-image:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/build-push-action@v6
+        with:
+          context: .
+          load: true
+          tags: crossing-ci:latest
+      - name: Test image health endpoint
+        run: |
+          PASSWORD_HASH=$(docker run --rm crossing-ci:latest hash-password ci-password)
+          docker run -d --name crossing-ci -p 8080:8080 \
+            -e CROSSING_ADMIN_PASSWORD_HASH="$PASSWORD_HASH" \
+            -e CROSSING_SESSION_SECRET='development-only-change-me-32chars' \
+            crossing-ci:latest
+          trap 'docker logs crossing-ci; docker rm -f crossing-ci' EXIT
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:8080/healthz; then exit 0; fi
+            sleep 2
+          done
+          exit 1
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-qemu-action@v3
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - uses: docker/metadata-action@v5
+        id: meta
+        with:
+          images: ghcr.io/${{ github.repository }}
+          tags: type=ref,event=tag
+      - uses: docker/build-push-action@v6
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
