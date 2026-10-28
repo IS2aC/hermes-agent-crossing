@@ -10,6 +10,9 @@ services:
       CROSSING_SESSION_SECRET: ${CROSSING_SESSION_SECRET:-development-only-change-me-32chars}
       CROSSING_CONFIG_PATH: /data/crossing.config.yaml
       HERMES_API_URL: http://hermes-mock:8642
+      HERMES_API_KEY: mock-default-key
+      HERMES_API_URL_DEV_MANAGER: http://hermes-mock:8643
+      HERMES_KEY_DEV_MANAGER: mock-dev-manager-key
       HERMES_DASHBOARD_URL: http://hermes-mock:9119
     volumes:
       - crossing-data:/data
@@ -23,9 +26,11 @@ services:
     command: ["pnpm", "--filter", "@crossing/hermes-mock", "dev"]
     ports:
       - "8642:8642"
+      - "8643:8643"
       - "9119:9119"
     environment:
       PORT: 8642
+      MOCK_SECONDARY_PORT: 8643
       DASHBOARD_PORT: 9119
       MOCK_SCENARIO: ${MOCK_SCENARIO:-nominal}
     volumes:

@@ -1,6 +1,6 @@
 # ADR-001 — Chat avec un profil Hermes nommé
 
-- Statut : proposé
+- Statut : remplacé par ADR-002, accepté par Isaac (2026-10-28)
 - Date : 2026-10-28
 - Contexte : SPEC §5.2 suppose que l'API server accepte `/p/<profile>/…` et qu'une clé par profil sélectionne ce profil. Le code Hermes 0.17.0 (`v2026.6.19`) en `/opt/hermes/gateway/platforms/api_server.py` enregistre des routes standard (`/health`, `/v1/capabilities`, `/api/sessions`, etc.) sans préfixe profil. Les captures de l'instance donnent 404 pour `/p/x/health` et `/p/x/v1/capabilities`. Le dashboard expose toutefois `/api/profiles` et son champ `gateway_running`.
 - Décision proposée : ne pas déclarer de chat possible pour tous les profils via une clé distincte sur un seul API server. L'adapter expose pour l'instant le chat seulement pour la cible effectivement desservie par l'API server; les autres profils sont en lecture seule via Dashboard.
