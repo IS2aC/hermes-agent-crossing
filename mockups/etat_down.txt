@@ -1,0 +1,11 @@
+MOCKUP: etat_down (État down)
+Scale: 3x (1920x1440 pixels)
+Content: Vue God similaire à vue_god mais mettant en évidence un agent en état 'touché':
+- Agent allongé/grisé à son poste
+- Icône « touché » clairement visible : pansement blanc + étoiles dorées qui tournent
+- Écran de l'agent en rouge d'alerte
+- Tooltip montrant la cause de l'état down
+- Autres agents continuent leurs activités normalement
+- Palette: Utilisation de la couleur rouge #e32137 pour l'état touché
+- Style: Cohérent avec la vue God, mise en évidence subtile de l'agent affecté
+- Icône d'état: 16x16 animée, immédiatement lisible comme « blessé »

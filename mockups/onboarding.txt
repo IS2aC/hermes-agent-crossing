@@ -1,0 +1,12 @@
+MOCKUP: onboarding (Écran d'onboarding)
+Scale: 3x (960x1440 pixels)
+Content: Assistant de premier lancement si connexion Hermes absente/invalide:
+- Titre: « Tester la connexion » avec explication
+- Champs de saisie: URL API + URL dashboard (les clés restent dans .env)
+- Bouton: « Tester la connexion » → ✓/✗ par capacité avec message d'aide précis
+- Exemple de message d'aide: « 401 sur /p/agent_x : la clé HERMES_KEY_AGENT_X ne correspond pas à l'API_SERVER_KEY du profil »
+- Design: Centré sur l'écran, fenêtre 9-sixel pixel
+- Boutons: Style pixel avec effets hover/press
+- Typographie: Claire et lisible, PixelOperator pour les titres
+- Icônes: Vérification/croix pour les résultats de test
+- Liens: Vers documentation si besoin d'aide

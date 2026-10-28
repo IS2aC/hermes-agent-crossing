@@ -1,0 +1,36 @@
+GIMP Palette
+Name: Hermes Agent Crossing - Fresh & Calm
+Columns: 8
+#
+  15  13  17	Encre — contours
+  30  41  82	Navy — panneaux, enseignes de zone
+  42  42  57	Ardoise — murs, ombres
+  68  52  103	Violet nuit — ombres profondes
+  115 126 126	Acier — meubles métal
+  154 152 164	Gris clair — chaises, détails
+  212 206 192	Crème — canapés
+  255 255 255	Blanc — highlights, texte
+  219 179 160	Sol principal
+  248 207 168	Sol clair — halos de lumière
+  200 128 76	Bois — bureaux
+  115 69  29	Bois sombre
+  247 155 57	Orange — accent CROSSING, état dégradé/bloqué
+  255 202 78	Miel — lampes, approbation requise
+  7   68  2	Vert profond — mur végétal
+  56  99  59	Sauge — feuillage ombre
+  71  155 41	Feuille
+  116 177 0	Feuille claire — état OK
+  5   69  85	Teal sombre — écrans ombre
+  10  113 183	Bleu écran
+  111 190 251	Ciel — vitres, écrans clairs
+  48  245 255	Cyan néon — yeux mascotte, icônes enseigne, texte néon
+  227 33  55	Rouge — état touché / down
+  163 156 255	Lavande — IA, état réflexion
+  248 150 197	Réserve 1 — Team color
+  107 130 228	Réserve 2 — Team color
+  253 122 97	Réserve 3 — Team color
+  220 185 244	Réserve 4 — Team color
+  156 199 199	Réserve 5 — Team color
+  178 114 125	Réserve 6 — Team color
+  255 238 172	Réserve 7 — Team color
+  107 85  82	Réserve 8 — Team color
