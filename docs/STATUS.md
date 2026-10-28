@@ -2,8 +2,8 @@
 
 | Phase | Nom | Statut | Responsable | Date cible | Risques / Notes |
 |-------|-----|--------|-------------|------------|-----------------|
-| 0 | Kickoff & cadrage | ✅ Terminé | dev_manager | 28/10/2026 | PR #1 prête pour merge (toutes questions répondues, SPEC §8 mis à jour) |
-| 1 | Contrat Hermes (discovery) | ⏳ En attente | agent_x + tester | — | Dépend de l'accès au serveur Hermes réel (lecture seule) |
+| 0 | Kickoff & cadrage | ✅ Terminé | dev_manager | 28/10/2026 | PR #1 mergée (toutes questions répondues, SPEC §8 mis à jour) |
+| 1 | Contrat Hermes (discovery) | 🔄 En cours | agent_x + tester | 29/10/2026 | Discovery endpoints réels sur NousResearch/hermes-agent + serveur Hermes Isaac (lecture seule) |
 | 2 | Fondations du dépôt | ⏳ En attente | agent_x | — | Stack imposée stricte (pnpm, Turborepo, Phaser 3, Fastify) |
 | 3 | Design system & assets | ⏳ En attente | designer | — | Validation Isaac sur maquettes (Gate 3) ; assets originaux/CC0 uniquement |
 | 4 | Backend : adapter, Status Engine, temps réel | ⏳ En attente | agent_x + tester | — | Couverture ≥ 80 % sur hermes + status ; mode dégradé |
