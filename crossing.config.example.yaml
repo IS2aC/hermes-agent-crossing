@@ -1,53 +1,156 @@
-# AGENTS.md — Règles de travail de l'équipe sur Hermes Agent Crossing
+# crossing.config.example.yaml — Configuration des teams, bureaux, rôles et sprites
+# Ce fichier NE CONTIENT AUCUN SECRET (les secrets sont dans .env)
+# Validé par zod au démarrage ; erreur lisible si invalide.
 
-À lire **avant toute action** par chaque agent (dev_manager, agent_x, designer, tester, reviewer).
+instance:
+  name: "Hermes Agent Crossing"
+  slogan: "Open Agents Better Workflows"
+  timezone: "Europe/Paris"
+  day_night_cycle: true
 
-## Documents de référence (ordre de priorité)
-1. `docs/SPEC.md` — cahier des charges, source de vérité.
-2. `docs/HERMES_CONTRACT.md` — contrat vérifié avec Hermes (produit en phase 1). **Interdit d'utiliser un endpoint Hermes qui n'y figure pas.**
-3. `docs/DESIGN_SYSTEM.md` — règles visuelles (produit en phase 3).
-4. `docs/PROMPTS.md` — séquence des phases et critères d'acceptation.
-5. `docs/adr/` — décisions qui modifient la SPEC.
+# ───────── Profils Hermes (découverts via GET /api/profiles) ─────────
+# Ne pas coder ces noms en dur dans l'application.
+# Cette section ne sert qu'à définir le rôle, la team, le bureau et le sprite de chaque profil connu.
+# Les profils découverts sur Hermes mais absents d'ici sont placés dans l'open space général.
 
-## Rôles
-| Agent | Responsabilité | Ne fait pas |
-|---|---|---|
-| `dev_manager` | Découpe chaque phase en cartes Kanban, assigne, arbitre, merge après review, tient `CHANGELOG.md` et l'état d'avancement dans `docs/STATUS.md` | N'écrit pas de code de production sauf déblocage |
-| `agent_x` | Architecture, backend, intégration Hermes, moteur de jeu, packaging | Ne merge pas ses propres PR |
-| `designer` | Palette, tilesets, sprites, UI kit, maquettes, `DESIGN_SYSTEM.md`, intégration CSS des composants | Ne modifie pas la logique métier |
-| `tester` | Mock Hermes, tests unitaires/intégration/E2E, scénarios de panne, rapports de bugs | Ne corrige pas lui-même un bug hors tests (il ouvre une carte) |
-| `reviewer` | Relit chaque PR avec la checklist ci-dessous, approuve ou demande des changements | N'approuve pas une PR dont la CI est rouge |
+profiles:
+  - id: "default"                    # = Jarvis (profil par défaut Hermes)
+    display_name: "Jarvis"
+    role: "Manager général"
+    team: null                       # bureau privé
+    office: "private"
+    is_manager: true
+    sprite:
+      base: "exec"
+      palette: ["#1e2952", "#30f5ff", "#ffffff"]
 
-## Flux Git
-- Branche `main` protégée : merge uniquement via PR, CI verte + 1 approbation `reviewer`.
-- Branches : `feat/<phase>-<sujet>`, `fix/<sujet>`, `chore/<sujet>`, `docs/<sujet>`.
-- Commits **Conventional Commits** (`feat(server): …`, `fix(web): …`).
-- Une PR = une carte Kanban = un objectif. PR < 600 lignes modifiées hors assets/lockfile, sinon découper.
-- Description de PR : lien carte, quoi/pourquoi, captures ou GIF pour tout changement visuel, comment tester.
-- Tags SemVer : `v0.<phase>.0` à la fin de chaque phase, `v1.0.0` à la livraison.
+  - id: "dev-manager"
+    display_name: "Dev Manager"
+    role: "Manager équipe dev"
+    team: "dev"
+    office: "desk"
+    is_manager: true
+    sprite:
+      base: "lead"
+      palette: ["#30f5ff", "#1e2952", "#ffffff"]
 
-## Règles de code
-- TypeScript `strict`, pas de `any` non justifié (commentaire `// why:`).
-- Toute donnée venant de Hermes passe par un schéma zod de `packages/shared` ou `apps/server/src/hermes/schemas`.
-- Aucun secret dans le code, les tests, les fixtures, les logs ou les captures.
-- Le navigateur n'appelle jamais Hermes directement.
-- Aucun nom d'agent codé en dur hors fixtures de test et fichier d'exemple.
-- ESLint + Prettier passent ; `pnpm typecheck && pnpm lint && pnpm test` avant chaque push.
-- Les assets : sources dans `assets-src/`, exports générés dans `apps/web/public/assets/` par script (`pnpm assets:build`). Toute ressource externe = CC0/OFL/MIT et listée dans `assets-src/CREDITS.md`. **Aucun asset issu de Pokémon ou d'un autre jeu.**
+  - id: "x"
+    display_name: "Agent X"
+    role: "Senior Developer"
+    team: "dev"
+    office: "desk"
+    is_manager: false
+    sprite:
+      base: "dev_hoodie"
+      palette: ["#30f5ff", "#c8804c", "#ffffff"]
 
-## Checklist reviewer (à copier dans chaque review)
-- [ ] La PR répond à la carte et aux critères d'acceptation de la phase
-- [ ] CI verte (lint, typecheck, tests, build)
-- [ ] Tests ajoutés/à jour pour le comportement modifié
-- [ ] Pas de secret, pas de log de clé, pas d'appel Hermes côté navigateur
-- [ ] Endpoints Hermes conformes à `HERMES_CONTRACT.md`, erreurs (401/429/503/timeout) gérées
-- [ ] Changement visuel conforme à `DESIGN_SYSTEM.md` (pixel-perfect, palette, échelle entière), capture fournie
-- [ ] Accessibilité : accessible au clavier, libellés, `prefers-reduced-motion`
-- [ ] Docs/CHANGELOG mis à jour si comportement utilisateur modifié
+  - id: "designer"
+    display_name: "Designer"
+    role: "Designer UI/UX"
+    team: "dev"
+    office: "desk"
+    is_manager: false
+    sprite:
+      base: "creative"
+      palette: ["#a39cff", "#30f5ff", "#ffffff"]
 
-## Definition of Done d'une carte
-Code mergé sur `main` · tests verts · doc à jour · démo (capture/GIF) postée en commentaire de la carte · `docs/STATUS.md` mis à jour par dev_manager.
+  - id: "tester"
+    display_name: "Tester"
+    role: "Tests automatisés"
+    team: "dev"
+    office: "desk"
+    is_manager: false
+    sprite:
+      base: "qa"
+      palette: ["#74b100", "#30f5ff", "#ffffff"]
 
-## Communication
-- Les questions bloquantes au propriétaire produit passent par **Jarvis**, en une seule fois par phase, sous forme de liste numérotée avec une proposition par défaut pour chaque point.
-- Si une info de la SPEC est contredite par Hermes réel : on suit Hermes, on écrit un ADR, on prévient dev_manager.
+  - id: "reviewer"
+    display_name: "Reviewer"
+    role: "Relecture PR"
+    team: "dev"
+    office: "desk"
+    is_manager: false
+    sprite:
+      base: "glasses"
+      palette: ["#ffca4e", "#30f5ff", "#ffffff"]
+
+  - id: "veilleur"
+    display_name: "Veilleur"
+    role: "Recherche & veille"
+    team: null                       # open space général
+    office: "desk"
+    is_manager: false
+    sprite:
+      base: "explorer"
+      palette: ["#f79b39", "#30f5ff", "#ffffff"]
+
+# ───────── Teams ─────────
+teams:
+  - id: "dev"
+    name: "Team Dev"
+    manager_id: "dev-manager"
+    member_ids: ["dev-manager", "x", "designer", "tester", "reviewer"]
+    color: "#30f5ff"                  # cyan néon (comme les icônes d'enseigne de la maquette)
+    open_space:
+      desk_layout: "islands"          # îlots face à face
+      manager_desk: "separate"        # bureau manager distinct avec tableau blanc
+
+# ───────── Prefabs de pièces (fichiers Tiled .tmj dans assets-src/maps/) ─────────
+rooms:
+  hall:
+    prefab: "hall.tmj"
+    required: true
+  private_office:
+    prefab: "private_office.tmj"
+    required: true
+  open_space_general:
+    prefab: "open_space_general.tmj"
+    required: true
+  team_open_space_2:
+    prefab: "team_open_space_2.tmj"
+  team_open_space_4:
+    prefab: "team_open_space_4.tmj"
+  team_open_space_6:
+    prefab: "team_open_space_6.tmj"
+  team_open_space_8:
+    prefab: "team_open_space_8.tmj"
+  kanban_room:
+    prefab: "kanban_room.tmj"
+    required: true
+  coffee_corner:
+    prefab: "coffee_corner.tmj"
+    required: true
+  server_room:
+    prefab: "server_room.tmj"
+    required: true
+
+# ───────── Points d'intérêt (pour pathfinding & décor) ─────────
+poi:
+  - id: "coffee_machine"
+    room: "coffee_corner"
+    weight: 20
+  - id: "plants"
+    room: "all"
+    variants: 5
+    weight: 15
+  - id: "team_sign"
+    room: "team_open_space_*"
+    required: true
+  - id: "kanban_wall"
+    room: "kanban_room"
+    required: true
+
+# ───────── Sprites de base disponibles (dans assets-src/sprites/) ─────────
+sprite_bases:
+  - exec          # dirigeant, costume
+  - lead          # manager, chemise
+  - dev_hoodie    # dev, hoodie
+  - creative      # designer, tenue décontractée
+  - qa            # tester, blouse/lunettes
+  - glasses       # reviewer, lunettes
+  - explorer      # veilleur, veste
+  - generic       # recolorable, fallback
+
+# ───────── Palette officielle (assets-src/palette.gpl) ─────────
+# 24 couleurs actives + 8 réservées = 32 max
+# Voir docs/SPEC.md §8 pour la liste complète des hex codes.
