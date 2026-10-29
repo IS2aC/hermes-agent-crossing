@@ -1,43 +1,131 @@
 import * as Phaser from 'phaser';
-import { generateLayout } from './layout';
+import { Agent } from './Agent';
+import { nameTag, zoneSign } from './art/furniture';
+import { rng } from './art/pixels';
+import { addTexture, registerCharacter, registerOfficeArt } from './art/textures';
+import { DEMO_CREW } from './crew';
+import { MAP_H, MAP_W, TILE, WALL_ROWS, WINDOWS, buildOffice, type Office } from './office';
 
-const TILE = 16;
+const WORLD_W = MAP_W * TILE;
+const WORLD_H = MAP_H * TILE;
+const MINIMAP_W = 144;
+
 export class WorldScene extends Phaser.Scene {
   private follow = false;
   private zoomLevel = 2;
-  private agents: Phaser.GameObjects.Container[] = [];
-  private roomPoints: Phaser.Math.Vector2[] = [];
-  private teamColor = 0x30f5ff;
+  private agents: Agent[] = [];
+  private hotspots: Phaser.Math.Vector2[] = [];
+  private office!: Office;
+  private minimap?: Phaser.Cameras.Scene2D.Camera;
+
   constructor() { super('world'); }
+
   create() {
-    const rooms = generateLayout(2026); const g = this.add.graphics();
-    rooms.forEach((room, i) => {
-      const x = room.x * TILE; const y = room.y * TILE; const w = room.width * TILE; const h = room.height * TILE;
-      this.roomPoints.push(new Phaser.Math.Vector2(x + w / 2, y + h / 2));
-      g.fillStyle(0xdbb3a0); g.fillRect(x, y, w, h); g.fillStyle(0x73451d); g.fillRect(x, y, w, 5); g.fillStyle(0xc8804c); g.fillRect(x + 3, y + 28, w - 6, h - 32);
-      // Tiled-like checker floor and room walls, rendered on integer pixels.
-      for (let tx = 0; tx < 16; tx++) for (let ty = 2; ty < 12; ty++) if ((tx + ty) % 2 === 0) { g.fillStyle(0xf8cfa8, .32); g.fillRect(x + tx * TILE, y + ty * TILE, TILE, TILE); }
-      g.lineStyle(2, 0x1e2952, 1); g.strokeRect(x, y, w, h); g.fillStyle(0x1e2952); g.fillRoundedRect(x + 8, y + 8, w - 16, 17, 2); g.fillStyle(0xffffff); g.fillRect(x + 14, y + 13, Math.min(w - 28, room.name.length * 4), 2);
-      if (room.kind === 'team_open_space_2' || room.kind === 'team_open_space_4' || room.kind === 'team_open_space_6' || room.kind === 'team_open_space_8') { g.lineStyle(3, room.color, 1); g.strokeRect(x + 7, y + 30, w - 14, h - 38); g.fillStyle(room.color); g.fillRect(x + 25, y + 30, 105, 3); }
-      // desks, seats, monitors, plants; deliberately simple original placeholders.
-      for (let d = 0; d < (i === 3 ? 4 : 2); d++) { const dx = x + 32 + (d % 2) * 96; const dy = y + 65 + Math.floor(d / 2) * 54; g.fillStyle(0x73451d); g.fillRect(dx, dy, 39, 22); g.fillStyle(0x0a71b7); g.fillRect(dx + 7, dy + 3, 18, 10); g.fillStyle(0x38633b); g.fillRect(x + w - 25 - d * 8, y + h - 25, 10, 13); }
-      if (room.kind === 'kanban_room') { g.fillStyle(0x1e2952); g.fillRect(x + 65, y + 42, 120, 48); for (let k = 0; k < 3; k++) { g.fillStyle([0xf79b39, 0x30f5ff, 0x74b100][k]!); g.fillRect(x + 75 + k * 35, y + 51, 25, 29); } }
-      if (room.kind === 'server_room') { for (let r = 0; r < 3; r++) { g.fillStyle(0x2a2a39); g.fillRect(x + 35 + r * 55, y + 47, 35, 75); g.fillStyle(r % 2 ? 0x30f5ff : 0x74b100); g.fillRect(x + 42 + r * 55, y + 55, 5, 5); } }
-      if (room.kind === 'coffee_corner') { g.fillStyle(0x73451d); g.fillRect(x + 60, y + 55, 55, 34); g.fillStyle(0xffffff); g.fillRect(x + 70, y + 45, 13, 14); }
+    this.office = buildOffice();
+    registerOfficeArt(this);
+    this.add.image(0, 0, 'office-base').setOrigin(0).setDepth(-10);
+    this.drawLight();
+
+    for (const zone of this.office.zones) {
+      const [zx, zy, zw, zh] = zone.area;
+      this.add.rectangle(zx * TILE, zy * TILE, zw * TILE, zh * TILE, zone.accent, 0.06).setOrigin(0).setStrokeStyle(1, zone.accent, 0.55).setDepth(-5);
+      addTexture(this, `sign-${zone.id}`, zoneSign(zone.label, `#${zone.accent.toString(16).padStart(6, '0')}`));
+      this.add.image(zone.sign.x, zone.sign.y, `sign-${zone.id}`).setOrigin(0).setDepth(9_000);
+      this.hotspots.push(new Phaser.Math.Vector2((zx + zw / 2) * TILE, (zy + zh / 2) * TILE));
+    }
+    this.hotspots.push(new Phaser.Math.Vector2(256, 130), new Phaser.Math.Vector2(256, 270), new Phaser.Math.Vector2(400, 70));
+
+    for (const prop of this.office.props) {
+      const image = this.add.image(prop.x, prop.y, prop.texture).setOrigin(0);
+      image.setDepth(prop.depth ?? prop.y + image.height);
+    }
+
+    const occupied = new Set<string>();
+    const random = rng(2026);
+    DEMO_CREW.forEach((member, i) => {
+      const sheet = registerCharacter(this, member.name.toLowerCase(), member.look);
+      const tagKey = `tag-${member.name.toLowerCase()}`;
+      addTexture(this, tagKey, nameTag(member.name, member.accent));
+      const seat = this.office.seats.find((s) => s.id === member.seat);
+      const start = seat?.tile ?? this.office.waypoints[i % this.office.waypoints.length]!;
+      const agent = new Agent(this, member.name, sheet, tagKey, this.office, occupied, random, start, !seat);
+      if (seat) agent.sit(seat);
+      this.agents.push(agent);
     });
-    const names = ['Mira', 'Atlas', 'Nova', 'Quinn', 'Echo', 'Sage'];
-    names.forEach((name, i) => { const p = this.roomPoints[i === 5 ? 2 : 3]!; const x = p.x - 42 + (i % 3) * 38; const y = p.y + Math.floor(i / 3) * 27;
-      const sprite = this.add.container(x, y); const body = this.add.graphics(); body.fillStyle([0x1e2952, 0xf79b39, 0x38633b, 0x443467, 0x0a71b7, 0x73451d][i]!); body.fillRect(-6, -9, 12, 14); body.fillStyle(0xd4cec0); body.fillRect(-5, -17, 10, 9); body.fillStyle(0x0f0d11); body.fillRect(-3, -13, 2, 2); body.fillRect(2, -13, 2, 2); sprite.add(body);
-      const label = this.add.text(-24, -32, name, { fontFamily: 'monospace', fontSize: '8px', color: '#1e2952', backgroundColor: '#ffffffcc', padding: { x: 2, y: 1 } }).setOrigin(0.5); sprite.add(label); sprite.setSize(24, 34).setInteractive(); sprite.on('pointerdown', () => window.dispatchEvent(new CustomEvent('crossing:agent', { detail: name }))); this.agents.push(sprite);
-    });
-    this.cameras.main.setBounds(-24, -24, 3 * 18 * TILE + 24, 3 * 14 * TILE + 24); this.cameras.main.centerOn(this.roomPoints[0]!.x, this.roomPoints[0]!.y); this.cameras.main.setZoom(this.zoomLevel);
-    this.input.on('wheel', (_p: unknown, _o: unknown, _dx: number, dy: number) => this.setZoom(this.zoomLevel + (dy < 0 ? 1 : -1)));
-    this.input.on('pointerdown', (p: Phaser.Input.Pointer) => { if (p.rightButtonDown() || p.middleButtonDown()) this.input.setDefaultCursor('grabbing'); });
-    this.input.on('pointermove', (p: Phaser.Input.Pointer) => { if (p.isDown) { this.cameras.main.scrollX -= p.velocity.x / this.zoomLevel; this.cameras.main.scrollY -= p.velocity.y / this.zoomLevel; } });
-    this.input.keyboard?.on('keydown', (e: KeyboardEvent) => { const cam = this.cameras.main; const step = 32 / this.zoomLevel; if (e.key === 'g' || e.key === 'G') this.follow = false; if (e.key === 'f' || e.key === 'F') this.follow = true; if (e.key === '+' || e.key === '=') this.setZoom(this.zoomLevel + 1); if (e.key === '-') this.setZoom(this.zoomLevel - 1); if (e.key === 'ArrowLeft' || e.key.toLowerCase() === 'a') cam.scrollX -= step; if (e.key === 'ArrowRight' || e.key.toLowerCase() === 'd') cam.scrollX += step; if (e.key === 'ArrowUp' || e.key.toLowerCase() === 'w') cam.scrollY -= step; if (e.key === 'ArrowDown' || e.key.toLowerCase() === 's') cam.scrollY += step; if (/^[1-7]$/.test(e.key)) { const p = this.roomPoints[Number(e.key) - 1]; if (p) cam.centerOn(p.x, p.y); } if (e.key.toLowerCase() === 'k') window.dispatchEvent(new CustomEvent('crossing:kanban')); });
+
+    const cam = this.cameras.main;
+    cam.setBounds(0, 0, WORLD_W, WORLD_H).setRoundPixels(true);
+    this.setZoom(this.fitZoom());
+    cam.centerOn(WORLD_W / 2, 0);
+    this.bindInput();
     this.addMiniMap();
+    this.scale.on('resize', () => this.placeMiniMap());
   }
-  private setZoom(level: number) { this.zoomLevel = Phaser.Math.Clamp(Math.round(level), 1, 4); this.cameras.main.setZoom(this.zoomLevel); }
-  update() { if (this.follow && this.agents[0]) this.cameras.main.centerOn(this.agents[0].x, this.agents[0].y); }
-  private addMiniMap() { const mini = this.cameras.add(0, 0, 150, 100).setZoom(.075).setName('minimap'); mini.setBackgroundColor('#1e2952'); mini.startFollow(this.cameras.main, false, 1, 1); this.add.rectangle(0, 0, 1900, 1200, 0x000000, 0).setScrollFactor(0).setDepth(1000); }
+
+  update(time: number, delta: number) {
+    for (const agent of this.agents) agent.update(time, delta);
+    if (this.follow && this.agents[0]) this.cameras.main.centerOn(this.agents[0].sprite.x, this.agents[0].sprite.y);
+  }
+
+  /** Window light falling on the floor, and a soft spot on the reception island. */
+  private drawLight() {
+    const g = this.add.graphics().setDepth(-4);
+    g.fillStyle(0xffffff, 0.1);
+    for (const [from, to] of WINDOWS) {
+      const x0 = from * TILE + 4;
+      const x1 = to * TILE - 4;
+      g.fillPoints([new Phaser.Math.Vector2(x0, WALL_ROWS * TILE), new Phaser.Math.Vector2(x1, WALL_ROWS * TILE), new Phaser.Math.Vector2(x1 + 40, WALL_ROWS * TILE + 70), new Phaser.Math.Vector2(x0 + 40, WALL_ROWS * TILE + 70)], true);
+    }
+    g.fillStyle(0xfff3d6, 0.35).fillEllipse(256, 136, 128, 52);
+  }
+
+  private fitZoom(): number {
+    const ratio = Math.min(this.scale.width / WORLD_W, this.scale.height / WORLD_H);
+    return Phaser.Math.Clamp(Math.ceil(ratio), 2, 4);
+  }
+
+  private setZoom(level: number) {
+    this.zoomLevel = Phaser.Math.Clamp(Math.round(level), 1, 4);
+    this.cameras.main.setZoom(this.zoomLevel);
+  }
+
+  private bindInput() {
+    this.input.on('wheel', (_p: unknown, _o: unknown, _dx: number, dy: number) => this.setZoom(this.zoomLevel + (dy < 0 ? 1 : -1)));
+    this.input.on('pointermove', (p: Phaser.Input.Pointer) => {
+      if (!p.isDown) return;
+      this.follow = false;
+      this.cameras.main.scrollX -= (p.x - p.prevPosition.x) / this.zoomLevel;
+      this.cameras.main.scrollY -= (p.y - p.prevPosition.y) / this.zoomLevel;
+    });
+    this.input.keyboard?.on('keydown', (e: KeyboardEvent) => {
+      const cam = this.cameras.main;
+      const step = 32 / this.zoomLevel;
+      const k = e.key.toLowerCase();
+      if (k === 'g') this.follow = false;
+      if (k === 'f') this.follow = true;
+      if (k === '+' || k === '=') this.setZoom(this.zoomLevel + 1);
+      if (k === '-') this.setZoom(this.zoomLevel - 1);
+      if (k === 'arrowleft' || k === 'a') cam.scrollX -= step;
+      if (k === 'arrowright' || k === 'd') cam.scrollX += step;
+      if (k === 'arrowup' || k === 'w') cam.scrollY -= step;
+      if (k === 'arrowdown' || k === 's') cam.scrollY += step;
+      if (/^[1-9]$/.test(k)) {
+        const p = this.hotspots[Number(k) - 1];
+        if (p) cam.centerOn(p.x, p.y);
+      }
+      if (k === 'k') window.dispatchEvent(new CustomEvent('crossing:kanban'));
+    });
+  }
+
+  private addMiniMap() {
+    const zoom = MINIMAP_W / WORLD_W;
+    this.minimap = this.cameras.add(0, 0, MINIMAP_W, Math.round(WORLD_H * zoom)).setZoom(zoom).setName('minimap');
+    this.minimap.setBackgroundColor('#1e2952').centerOn(WORLD_W / 2, WORLD_H / 2);
+    this.minimap.ignore(this.agents.map((a) => a.tag));
+    this.placeMiniMap();
+  }
+
+  private placeMiniMap() {
+    this.minimap?.setPosition(18, this.scale.height - this.minimap.height - 62);
+  }
 }
