@@ -1,4 +1,4 @@
-import type { AgentState } from '@crossing/shared';
+export type AgentState = 'working' | 'thinking' | 'idle' | 'meeting' | 'blocked' | 'waiting_approval' | 'down' | 'degraded';
 
 export const AGENT_STATES: readonly AgentState[] = ['working', 'thinking', 'idle', 'meeting', 'blocked', 'waiting_approval', 'down', 'degraded'];
 export const AGENT_PALETTE = [0x1e2952, 0xf79b39, 0x38633b, 0x443467, 0x0a71b7, 0x73451d] as const;
@@ -16,7 +16,9 @@ export function parseAgentSnapshot(value: unknown): AgentSnapshot[] {
     if (!item || typeof item !== 'object') return [];
     const a = item as Record<string, unknown>;
     if (typeof a.id !== 'string' || !AGENT_STATES.includes(a.state as AgentState)) return [];
-    return [{ id: a.id, name: typeof a.name === 'string' ? a.name : typeof a.profile === 'string' ? a.profile : a.id, profile: typeof a.profile === 'string' ? a.profile : undefined, state: a.state as AgentState }];
+    const agent: AgentSnapshot = { id: a.id, name: typeof a.name === 'string' ? a.name : typeof a.profile === 'string' ? a.profile : a.id, state: a.state as AgentState };
+    if (typeof a.profile === 'string') agent.profile = a.profile;
+    return [agent];
   });
 }
 
