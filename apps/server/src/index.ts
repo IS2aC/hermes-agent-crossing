@@ -84,6 +84,23 @@ app.post('/api/sessions', async (request, reply) => {
   const agent = registry.get(body.data.agent); if (!agent?.client) return reply.code(403).send({ error: agent?.reason ?? 'Profil inconnu' });
   try { return await agent.client.request('/api/sessions', z.unknown(), { method: 'POST', body: body.data.session ?? {} }); } catch (error) { return reply.code(502).send({ error: (error as Error).message }); }
 });
+app.get<{ Params: { sessionId: string }; Querystring: { agent: string } }>('/api/sessions/:sessionId/messages', async (request, reply) => {
+  const agent = registry.get(request.query.agent); if (!agent?.client) return reply.code(403).send({ error: agent?.reason ?? 'Profil inconnu' });
+  try { return await agent.client.get(`/api/sessions/${encodeURIComponent(request.params.sessionId)}/messages`, z.unknown()); } catch (error) { return reply.code(502).send({ error: (error as Error).message }); }
+});
+app.post<{ Params: { sessionId: string }; Querystring: { agent: string } }>('/api/sessions/:sessionId/chat/stream', async (request, reply) => {
+  const agent = registry.get(request.query.agent); if (!agent?.client) return reply.code(403).send({ error: agent?.reason ?? 'Profil inconnu' });
+  const body = z.record(z.string(), z.unknown()).safeParse(request.body); if (!body.success) return reply.code(400).send({ error: 'Corps chat invalide' });
+  const controller = new AbortController(); reply.raw.on('close', () => controller.abort());
+  try {
+    const upstream = await fetch(new URL(`/api/sessions/${encodeURIComponent(request.params.sessionId)}/chat/stream`, agent.client.endpoint.url), { method: 'POST', headers: { authorization: `Bearer ${agent.client.endpoint.key}`, 'content-type': 'application/json', accept: 'text/event-stream' }, body: JSON.stringify(body.data), signal: controller.signal });
+    if (!upstream.ok || !upstream.body) return reply.code(502).send({ error: `Hermes chat stream HTTP ${upstream.status}` });
+    reply.hijack(); reply.raw.writeHead(200, { 'content-type': upstream.headers.get('content-type') ?? 'text/event-stream', 'cache-control': 'no-cache, no-transform', connection: 'keep-alive', 'x-accel-buffering': 'no' });
+    const reader = upstream.body.getReader();
+    try { while (true) { const { done, value } = await reader.read(); if (done) break; if (!reply.raw.write(value)) await new Promise<void>(resolve => reply.raw.once('drain', resolve)); } } finally { reader.releaseLock(); }
+    reply.raw.end();
+  } catch (error) { if (!controller.signal.aborted) { if (!reply.raw.headersSent) return reply.code(502).send({ error: (error as Error).message }); reply.raw.end(); } }
+});
 app.post<{ Params: { sessionId: string }; Querystring: { agent: string } }>('/api/sessions/:sessionId/chat', async (request, reply) => {
   const agent = registry.get(request.query.agent); if (!agent?.client) return reply.code(403).send({ error: agent?.reason ?? 'Profil inconnu' });
   const body = z.record(z.string(), z.unknown()).safeParse(request.body); if (!body.success) return reply.code(400).send({ error: 'Corps chat invalide' });
