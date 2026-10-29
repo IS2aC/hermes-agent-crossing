@@ -56,6 +56,14 @@ export class WorldScene extends Phaser.Scene {
     this.input.keyboard?.on('keydown', (e: KeyboardEvent) => { const cam = this.cameras.main; const step = 32 / this.zoomLevel; if (e.key === 'g' || e.key === 'G') this.follow = false; if (e.key === 'f' || e.key === 'F') this.follow = true; if (e.key === '+' || e.key === '=') this.setZoom(this.zoomLevel + 1); if (e.key === '-') this.setZoom(this.zoomLevel - 1); if (e.key === 'ArrowLeft' || e.key.toLowerCase() === 'a') cam.scrollX -= step; if (e.key === 'ArrowRight' || e.key.toLowerCase() === 'd') cam.scrollX += step; if (e.key === 'ArrowUp' || e.key.toLowerCase() === 'w') cam.scrollY -= step; if (e.key === 'ArrowDown' || e.key.toLowerCase() === 's') cam.scrollY += step; if (/^[1-7]$/.test(e.key)) { const p = this.roomPoints[Number(e.key) - 1]; if (p) cam.centerOn(p.x, p.y); } if (e.key.toLowerCase() === 'k') window.dispatchEvent(new CustomEvent('crossing:kanban')); });
     this.addMiniMap();
     window.addEventListener('crossing:snapshot', this.onSnapshot);
+    if (import.meta.env.DEV) this.exposeForTests();
+  }
+  /** Dev-only inspection hook so e2e tests can assert on world state instead of pixels. */
+  private exposeForTests(): void {
+    (window as unknown as { __crossingWorld?: unknown }).__crossingWorld = {
+      agents: () => this.agentRecords.map((r) => ({ id: r.data.id, name: r.data.name, state: r.data.state, icon: r.stateIcon.visible ? r.stateIcon.text : '', alpha: r.sprite.alpha, onScreen: this.cameras.main.worldView.contains(r.sprite.x, r.sprite.y) })),
+      focus: (id: string) => { const r = this.agentRecords.find((agent) => agent.data.id === id); if (r) { this.follow = false; this.cameras.main.centerOn(r.sprite.x, r.sprite.y); } },
+    };
   }
   private onSnapshot = (event: Event) => this.setAgentSnapshots(parseAgentSnapshot((event as CustomEvent<unknown>).detail));
   setAgentSnapshots(agents: AgentSnapshot[]): void {
