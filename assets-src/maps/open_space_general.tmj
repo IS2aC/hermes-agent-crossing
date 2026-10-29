@@ -1,0 +1,32 @@
+{
+  "type": "map",
+  "version": "1.10",
+  "tiledversion": "1.10.2",
+  "orientation": "orthogonal",
+  "renderorder": "right-down",
+  "width": 16,
+  "height": 12,
+  "tilewidth": 16,
+  "tileheight": 16,
+  "infinite": false,
+  "layers": [
+    {
+      "id": 1,
+      "name": "room",
+      "type": "objectgroup",
+      "draworder": "topdown",
+      "objects": [
+        {
+          "id": 1,
+          "name": "open_space_general",
+          "type": "room",
+          "x": 0,
+          "y": 0,
+          "width": 256,
+          "height": 192
+        }
+      ]
+    }
+  ],
+  "tilesets": []
+}
