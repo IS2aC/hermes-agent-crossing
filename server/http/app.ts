@@ -46,12 +46,15 @@ export function createApp(dependencies: AppDependencies): Express {
   api.use(originGuard(config.allowedOrigins))
 
   api.post('/auth/login', (request, response) => {
-    if (!loginLimiter.allow(request.ip ?? 'inconnu')) {
+    const client = request.ip ?? 'inconnu'
+    // Seuls les échecs comptent : une connexion valide ne bloque jamais l'opérateur.
+    if (loginLimiter.isBlocked(client)) {
       response.status(429).json({ error: 'Trop de tentatives, réessaie dans une minute' })
       return
     }
     const password: unknown = (request.body as { password?: unknown } | undefined)?.password
     if (typeof password !== 'string' || !config.passwordHash || !verifyPassword(password, config.passwordHash)) {
+      loginLimiter.record(client)
       response.status(401).json({ error: 'Mot de passe incorrect' })
       return
     }

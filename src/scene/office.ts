@@ -1,6 +1,5 @@
 import type { AssetManifest } from '../assets/manifest'
-import type { VisualState } from '../characters/animation'
-import { createActor, type Actor, type Facing } from '../engine/actor'
+import { createActor, type Actor } from '../engine/actor'
 import type { Point } from '../engine/grid'
 import { parseTileMap, setSolid, type TileMap } from '../engine/tilemap'
 
@@ -57,40 +56,11 @@ export const PROP_PLACEMENTS: readonly PropPlacement[] = [
   { id: 'prop.sofa', tile: { x: 14, y: 12 } },
 ]
 
-export interface CastMember {
-  id: string
-  spriteId: string
-  actor: Actor
-  initialState: VisualState
-}
-
-interface CastSpot {
-  spriteId: string
-  deskTile: Point
-  initialState: VisualState
-}
-
-/** Démonstration seulement : ces états sont des exemples, jamais l'état d'un vrai agent. */
-const CAST: readonly CastSpot[] = [
-  { spriteId: 'character.jarvis', deskTile: { x: 3, y: 3 }, initialState: 'work' },
-  { spriteId: 'character.veilleur', deskTile: { x: 7, y: 3 }, initialState: 'think' },
-  { spriteId: 'character.data-analyst', deskTile: { x: 11, y: 3 }, initialState: 'idle' },
-  { spriteId: 'character.devops', deskTile: { x: 3, y: 7 }, initialState: 'unknown' },
-  { spriteId: 'character.developer', deskTile: { x: 7, y: 7 }, initialState: 'work' },
-  { spriteId: 'character.researcher', deskTile: { x: 11, y: 7 }, initialState: 'idle' },
-  { spriteId: 'character.security', deskTile: { x: 7, y: 11 }, initialState: 'unavailable' },
-]
-
 export const PLAYER_START: Point = { x: 9, y: 6 }
-
-export function initialCastStates(): Record<string, VisualState> {
-  return Object.fromEntries(CAST.map((spot) => [spot.spriteId, spot.initialState]))
-}
 
 export interface OfficeScene {
   map: TileMap
   player: Actor
-  cast: CastMember[]
 }
 
 export function createOfficeScene(manifest: AssetManifest): OfficeScene {
@@ -104,12 +74,12 @@ export function createOfficeScene(manifest: AssetManifest): OfficeScene {
       }
     }
   }
-  const facing: Facing = 'up'
-  const cast = CAST.map((spot) => {
-    const actor = createActor({ x: spot.deskTile.x, y: spot.deskTile.y + 1 }, 48, facing)
-    // Centré sur le bureau, qui occupe deux tuiles.
-    actor.x += 8
-    return { id: spot.spriteId, spriteId: spot.spriteId, actor, initialState: spot.initialState }
-  })
-  return { map, player: createActor(PLAYER_START), cast }
+  return { map, player: createActor(PLAYER_START) }
+}
+
+/** Le personnage regarde son écran, centré sur le bureau de deux tuiles. */
+export function createSpotActor(tile: Point): Actor {
+  const actor = createActor(tile, 48, 'up')
+  actor.x += 8
+  return actor
 }

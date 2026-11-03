@@ -53,7 +53,7 @@ export function propCommands(placements: readonly PropPlacement[], assets: Asset
   return commands
 }
 
-export function characterCommand(actor: Actor, spriteId: string, frame: ResolvedFrame, assets: Assets): DrawCommand {
+export function characterCommand(actor: Actor, spriteId: string, frame: ResolvedFrame, assets: Assets, selected = false): DrawCommand {
   const { sprite, bubbles } = assets.manifest
   const fallback = assets.characters.get('character.master')!
   const sheet = assets.characters.get(spriteId) ?? fallback
@@ -63,6 +63,13 @@ export function characterCommand(actor: Actor, spriteId: string, frame: Resolved
     draw(context) {
       const left = position.x - sprite.anchor.x
       const top = position.y - sprite.anchor.y
+      if (selected) {
+        context.fillStyle = '#f2c14e'
+        context.fillRect(position.x - 8, position.y - 1, 16, 1)
+        context.fillRect(position.x - 8, position.y + 2, 16, 1)
+        context.fillRect(position.x - 9, position.y, 1, 2)
+        context.fillRect(position.x + 8, position.y, 1, 2)
+      }
       context.drawImage(sheet, frame.sourceX, frame.sourceY, sprite.cell.width, sprite.cell.height, left, top, sprite.cell.width, sprite.cell.height)
       if (frame.bubble) {
         const column = bubbles.ids[frame.bubble]?.column

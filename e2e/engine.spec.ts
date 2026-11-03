@@ -27,6 +27,8 @@ async function worldPixel(page: Page, worldX: number, worldY: number) {
   }, { x, y })
 }
 
+const readView = status
+
 async function clickTile(page: Page, tileX: number, tileY: number) {
   const view = await status(page)
   await page.getByTestId('office-canvas').click({
@@ -53,8 +55,6 @@ test.describe('scène', () => {
 
   test('annonce clairement une simulation', async ({ page }) => {
     await expect(page.getByRole('status')).toContainText('données simulées')
-    await expect(page.getByRole('option', { name: 'Travail (simulé)' }).first()).toBeAttached()
-    await expect(page.getByText('Apparence seulement')).toBeVisible()
   })
 
   test('le clavier déplace le personnage et change son animation', async ({ page }) => {
@@ -87,7 +87,7 @@ test.describe('scène', () => {
   })
 
   test('le clic mène à une case, ou signale qu\'elle est inaccessible', async ({ page }) => {
-    await clickTile(page, 3, 3)
+    await clickTile(page, 4, 7)
     await expect(page.getByTestId('office-status')).toContainText('Case inaccessible')
     await clickTile(page, 12, 11)
     await expect(page.getByTestId('office-status')).not.toContainText('Case inaccessible')
@@ -138,10 +138,10 @@ test.describe('scène', () => {
     await expect.poll(() => worldPixel(page, 24, 108)).not.toBe('#9fa4b0')
   })
 
-  test('un état inconnu reste figé, et le travail anime le personnage', async ({ page }) => {
-    const select = page.getByLabel('DEVOPS')
-    await select.selectOption('unknown')
-    const view = await status(page)
+  test('un personnage sans agent reste figé : aucune activité suggérée', async ({ page }) => {
+    const status = page.getByTestId('office-status')
+    await expect(status).toHaveAttribute('data-cast', /devops:unbound/)
+    const view = await readView(page)
     // DEVOPS se tient en x=64, y=136 ; sa cellule fait 24x32, avec l'ancrage en 12,30.
     const region = {
       x: view.offsetX + (64 - 12) * view.scale,
@@ -153,18 +153,9 @@ test.describe('scène', () => {
       const { data } = node.getContext('2d')!.getImageData(box.x, box.y, box.w, box.h)
       return Array.from(data).join()
     }, region)
-
     const first = await read()
     await page.waitForTimeout(1200)
     expect(await read()).toBe(first)
-
-    await select.selectOption('work')
-    const seen = new Set<string>()
-    for (let i = 0; i < 8; i++) {
-      seen.add(await read())
-      await page.waitForTimeout(90)
-    }
-    expect(seen.size).toBeGreaterThan(1)
   })
 })
 

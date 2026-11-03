@@ -32,12 +32,16 @@ describe('sélection de la frame', () => {
     expect(resolveFrame(layout, 'work', 'down', 0).bubble).toBeNull()
   })
 
-  it.each(['unknown', 'unavailable'] as const)('fige la pose pour l\'état %s : aucune activité suggérée', (state) => {
+  it.each(['unknown', 'unavailable'] as const)('fige la pose et ajoute une bulle pour l\'état %s', (state) => {
     const start = resolveFrame(layout, state, 'up', 0)
     const later = resolveFrame(layout, state, 'up', 37.3)
     expect(later).toEqual(start)
     expect(start).toMatchObject({ animation: 'idle', frame: 0, sourceY: 3 * 32, fallback: false })
     expect(start.bubble).toBe(`bubble.${state}`)
+  })
+
+  it('fige un personnage sans agent, sans bulle', () => {
+    expect(resolveFrame(layout, 'unbound', 'up', 12)).toMatchObject({ animation: 'idle', frame: 0, bubble: null, fallback: false })
   })
 
   it('retombe sur une pose neutre figée si une animation manque', () => {

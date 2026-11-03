@@ -58,15 +58,25 @@ export class RateLimiter {
     private readonly now: () => number = Date.now,
   ) {}
 
-  allow(key: string): boolean {
+  private recent(key: string): number[] {
     const threshold = this.now() - this.windowMs
     const recent = (this.hits.get(key) ?? []).filter((time) => time > threshold)
-    if (recent.length >= this.limit) {
-      this.hits.set(key, recent)
-      return false
-    }
-    recent.push(this.now())
     this.hits.set(key, recent)
+    return recent
+  }
+
+  isBlocked(key: string): boolean {
+    return this.recent(key).length >= this.limit
+  }
+
+  record(key: string): void {
+    this.recent(key).push(this.now())
+  }
+
+  /** Vérifie et compte d'un seul geste. */
+  allow(key: string): boolean {
+    if (this.isBlocked(key)) return false
+    this.record(key)
     return true
   }
 }

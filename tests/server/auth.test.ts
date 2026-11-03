@@ -114,6 +114,13 @@ describe('accès HTTP', () => {
     await request(app).post('/api/auth/login').set('Origin', ORIGIN).send({ password: 'mot-de-passe-solide' }).expect(429)
   })
 
+  it('ne compte pas les connexions réussies', async () => {
+    const app = build()
+    for (let i = 0; i < 7; i++) {
+      await request(app).post('/api/auth/login').set('Origin', ORIGIN).send({ password: 'mot-de-passe-solide' }).expect(204)
+    }
+  })
+
   it('pose un cookie protégé après connexion', async () => {
     const response = await request(build({ secureCookies: true })).post('/api/auth/login').set('Origin', ORIGIN).send({ password: 'mot-de-passe-solide' }).expect(204)
     const cookie = response.headers['set-cookie']![0]!

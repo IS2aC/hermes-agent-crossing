@@ -5,7 +5,8 @@ import { canOccupy } from '../../src/engine/collision'
 import { worldToTile } from '../../src/engine/grid'
 import { findPath } from '../../src/engine/pathfinding'
 import { isSolid, tileAt } from '../../src/engine/tilemap'
-import { createOfficeScene, initialCastStates, PLAYER_START, PROP_PLACEMENTS } from '../../src/scene/office'
+import { INITIAL_CHARACTERS, OFFICE_SPOTS } from '../../src/domain/spots'
+import { createOfficeScene, createSpotActor, PLAYER_START, PROP_PLACEMENTS } from '../../src/scene/office'
 
 const manifest: AssetManifest = JSON.parse(readFileSync('public/assets/manifest.json', 'utf8'))
 
@@ -21,9 +22,13 @@ describe('bureau', () => {
     for (const placement of PROP_PLACEMENTS) expect(manifest.props.ids).toHaveProperty([placement.id])
   })
 
-  it('n\'utilise que des personnages du catalogue', () => {
-    for (const member of scene.cast) expect(manifest.characters).toHaveProperty([member.spriteId])
-    expect(scene.cast).toHaveLength(7)
+  it('n\'utilise que des personnages du catalogue, chacun sur un emplacement connu', () => {
+    for (const character of INITIAL_CHARACTERS) {
+      expect(manifest.characters).toHaveProperty([character.spriteId])
+      expect(OFFICE_SPOTS.map((spot) => spot.id)).toContain(character.spotId)
+    }
+    expect(new Set(INITIAL_CHARACTERS.map((character) => character.spotId)).size).toBe(INITIAL_CHARACTERS.length)
+    expect(INITIAL_CHARACTERS).toHaveLength(7)
   })
 
   it('garde les meubles dans la carte, sans se superposer ni bloquer un mur', () => {
@@ -42,16 +47,16 @@ describe('bureau', () => {
     }
   })
 
-  it('place chaque personnage sur une position libre', () => {
+  it('place chaque emplacement sur une position libre', () => {
     expect(canOccupy(scene.map, scene.player)).toBe(true)
-    for (const member of scene.cast) {
-      expect(canOccupy(scene.map, member.actor), member.id).toBe(true)
+    for (const spot of OFFICE_SPOTS) {
+      expect(canOccupy(scene.map, createSpotActor({ x: spot.tileX, y: spot.tileY })), spot.id).toBe(true)
     }
   })
 
   it('laisse chaque poste accessible depuis le départ', () => {
-    for (const member of scene.cast) {
-      expect(findPath(scene.map, PLAYER_START, worldToTile(member.actor)), member.id).not.toBeNull()
+    for (const spot of OFFICE_SPOTS) {
+      expect(findPath(scene.map, PLAYER_START, worldToTile(createSpotActor({ x: spot.tileX, y: spot.tileY }))), spot.id).not.toBeNull()
     }
   })
 
@@ -63,10 +68,5 @@ describe('bureau', () => {
 
   it('n\'affiche pas d\'objet mural comme obstacle au sol', () => {
     expect(isSolid(scene.map, { x: 9, y: 12 })).toBe(false)
-  })
-
-  it('a pour chaque membre un état initial', () => {
-    const states = initialCastStates()
-    for (const member of scene.cast) expect(states[member.id]).toBe(member.initialState)
   })
 })

@@ -39,7 +39,7 @@ read -rs HAC_PASSWORD && printf '%s' "$HAC_PASSWORD" | npm run --silent hash-pas
 | Mesure | Détail |
 |---|---|
 | Connexion | Mot de passe unique, empreinte scrypt, cookie `HttpOnly`, `SameSite=Strict`, `Secure` en production |
-| Tentatives | 5 par minute et par adresse |
+| Tentatives | 5 échecs par minute et par adresse |
 | Origine | Toute écriture doit venir d'une origine autorisée, ce qui remplace un jeton CSRF |
 | CORS | Aucun en-tête CORS : le navigateur ne peut pas appeler l'API depuis un autre site |
 | Validation | Corps limité à 256 Ko, erreurs sans détail interne |

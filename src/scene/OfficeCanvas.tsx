@@ -2,14 +2,14 @@ import { useEffect, useRef, useState } from 'react'
 import { createImageCache, loadAssets, loadBrowserImage } from '../assets/loader'
 import type { AssetManifest } from '../assets/manifest'
 import { CharacterAnimator, type VisualState } from '../characters/animation'
-import { navigateTo, updateActor } from '../engine/actor'
+import { navigateTo, updateActor, type Actor } from '../engine/actor'
 import { clampZoom, computeView, fitZoom, screenToWorld, type View } from '../engine/camera'
-import { worldToTile } from '../engine/grid'
+import { worldToTile, type Point } from '../engine/grid'
 import { createLoop } from '../engine/loop'
 import { renderFrame } from '../engine/renderer'
 import { worldSize } from '../engine/tilemap'
 import { characterCommand, createGroundLayer, propCommands } from './draw'
-import { createOfficeScene, PROP_PLACEMENTS } from './office'
+import { createOfficeScene, createSpotActor, PROP_PLACEMENTS } from './office'
 
 const ASSET_BASE = `${import.meta.env.BASE_URL}assets`
 const images = createImageCache(loadBrowserImage)
@@ -21,17 +21,32 @@ const KEY_DIRECTIONS: Record<string, { x: number; y: number }> = {
   ArrowRight: { x: 1, y: 0 },
 }
 
-interface OfficeCanvasProps {
-  /** États à afficher, fournis de l'extérieur : le canvas ne les déduit jamais. */
-  states: Record<string, VisualState>
+export interface CastEntry {
+  id: string
+  spriteId: string
+  tile: Point
+  /** État à afficher, fourni de l'extérieur : le canvas ne le déduit jamais. */
+  state: VisualState
 }
 
-export function OfficeCanvas({ states }: OfficeCanvasProps) {
+interface OfficeCanvasProps {
+  cast: readonly CastEntry[]
+  selectedId: string | null
+  onSelect(id: string): void
+}
+
+interface SceneInputs {
+  cast: readonly CastEntry[]
+  selectedId: string | null
+  onSelect(id: string): void
+}
+
+export function OfficeCanvas({ cast, selectedId, onSelect }: OfficeCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const statusRef = useRef<HTMLParagraphElement>(null)
-  const statesRef = useRef(states)
+  const inputsRef = useRef<SceneInputs>({ cast, selectedId, onSelect })
   const [loadError, setLoadError] = useState<string | null>(null)
-  statesRef.current = states
+  inputsRef.current = { cast, selectedId, onSelect }
 
   useEffect(() => {
     let disposed = false
@@ -43,7 +58,7 @@ export function OfficeCanvas({ states }: OfficeCanvasProps) {
       const manifest = (await response.json()) as AssetManifest
       const assets = await loadAssets(manifest, ASSET_BASE, images)
       if (disposed) return
-      cleanup = runScene(canvasRef.current!, statusRef.current!, assets, statesRef)
+      cleanup = runScene(canvasRef.current!, statusRef.current!, assets, inputsRef)
     }
     start().catch((error: unknown) => {
       if (!disposed) setLoadError(error instanceof Error ? error.message : String(error))
@@ -68,11 +83,34 @@ export function OfficeCanvas({ states }: OfficeCanvasProps) {
   )
 }
 
+/** La zone cliquable couvre le corps visible, au-dessus des pieds. */
+function hitsCharacter(actor: Actor, world: Point): boolean {
+  return Math.abs(world.x - actor.x) <= 7 && world.y >= actor.y - 22 && world.y <= actor.y + 1
+}
+
+function syncMembers(
+  members: Map<string, { actor: Actor; animator: CharacterAnimator; entry: CastEntry }>,
+  cast: readonly CastEntry[],
+): void {
+  const ids = new Set(cast.map((entry) => entry.id))
+  for (const id of members.keys()) if (!ids.has(id)) members.delete(id)
+  for (const entry of cast) {
+    const member = members.get(entry.id)
+    if (!member) {
+      members.set(entry.id, { actor: createSpotActor(entry.tile), animator: new CharacterAnimator(entry.state), entry })
+      continue
+    }
+    if (member.entry.tile.x !== entry.tile.x || member.entry.tile.y !== entry.tile.y) member.actor = createSpotActor(entry.tile)
+    member.animator.setState(entry.state)
+    member.entry = entry
+  }
+}
+
 function runScene(
   canvas: HTMLCanvasElement,
   status: HTMLElement,
   assets: Awaited<ReturnType<typeof loadAssets<HTMLImageElement>>>,
-  statesRef: { current: Record<string, VisualState> },
+  inputs: { current: SceneInputs },
 ): () => void {
   const context = canvas.getContext('2d')!
   const { manifest } = assets
@@ -81,7 +119,7 @@ function runScene(
   const ground = createGroundLayer(scene.map, PROP_PLACEMENTS, assets)
   const props = propCommands(PROP_PLACEMENTS, assets)
   const playerAnimator = new CharacterAnimator('idle')
-  const castAnimators = new Map(scene.cast.map((member) => [member.id, new CharacterAnimator(member.initialState)]))
+  const members = new Map<string, { actor: Actor; animator: CharacterAnimator; entry: CastEntry }>()
   const pressed = new Set<string>()
   let view: View = { scale: 1, offsetX: 0, offsetY: 0 }
   let zoom: number | null = null
@@ -113,11 +151,17 @@ function runScene(
   const onClick = (event: MouseEvent) => {
     const ratio = window.devicePixelRatio || 1
     const rect = canvas.getBoundingClientRect()
-    const target = worldToTile(screenToWorld(view, {
+    const world = screenToWorld(view, {
       x: (event.clientX - rect.left) * ratio,
       y: (event.clientY - rect.top) * ratio,
-    }))
-    message = navigateTo(scene.player, scene.map, target) ? '' : 'Case inaccessible'
+    })
+    for (const { actor, entry } of members.values()) {
+      if (hitsCharacter(actor, world)) {
+        inputs.current.onSelect(entry.id)
+        return
+      }
+    }
+    message = navigateTo(scene.player, scene.map, worldToTile(world)) ? '' : 'Case inaccessible'
   }
   window.addEventListener('keydown', onKeyDown)
   window.addEventListener('keyup', onKeyUp)
@@ -133,11 +177,8 @@ function runScene(
       updateActor(scene.player, scene.map, seconds, input)
       playerAnimator.setState(scene.player.moving ? 'walk' : 'idle')
       playerAnimator.update(seconds)
-      for (const member of scene.cast) {
-        const animator = castAnimators.get(member.id)!
-        animator.setState(statesRef.current[member.id] ?? 'unknown')
-        animator.update(seconds)
-      }
+      syncMembers(members, inputs.current.cast)
+      for (const { animator } of members.values()) animator.update(seconds)
     },
     render() {
       view = computeView({
@@ -150,8 +191,8 @@ function runScene(
       })
       const characters = [
         characterCommand(scene.player, 'character.master', playerAnimator.frame(manifest.sprite, scene.player.facing), assets),
-        ...scene.cast.map((member) =>
-          characterCommand(member.actor, member.spriteId, castAnimators.get(member.id)!.frame(manifest.sprite, member.actor.facing), assets)),
+        ...[...members.values()].map(({ actor, animator, entry }) =>
+          characterCommand(actor, entry.spriteId, animator.frame(manifest.sprite, actor.facing), assets, entry.id === inputs.current.selectedId)),
       ]
       renderFrame(context, {
         width: canvas.width,
@@ -168,6 +209,7 @@ function runScene(
       status.dataset.offsetX = String(view.offsetX)
       status.dataset.offsetY = String(view.offsetY)
       status.dataset.animation = playerAnimator.state
+      status.dataset.cast = [...members.values()].map(({ entry, animator }) => `${entry.id}:${animator.state}`).join(',')
       status.textContent = `Tuile ${tile.x},${tile.y} · échelle ×${view.scale}${message ? ` · ${message}` : ''}`
     },
   }, {
