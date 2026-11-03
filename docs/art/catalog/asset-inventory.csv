@@ -1,0 +1,280 @@
+chemin,format,largeur,hauteur,mode_couleur,octets,role,licence,compatibilite_orthogonale
+build/icon.png,png,512,512,rgba,3663,icone application,MIT annonce,inutilisable
+docs/images/Day-Mode.png,png,1173,761,rgb,943938,documentation,non concerne,inutilisable
+docs/images/Helper.png,png,1600,1200,rgba,1146074,documentation,non concerne,inutilisable
+docs/images/Me & Claude.png,png,1170,759,rgb,927584,documentation,non concerne,inutilisable
+docs/images/Me-1-front-right.png,png,450,1024,rgba,301130,documentation,non concerne,inutilisable
+docs/images/Me-1-rear-left.png,png,450,1024,rgba,274788,documentation,non concerne,inutilisable
+docs/images/andy-bernard.png,png,196,527,rgba,127233,documentation,non concerne,inutilisable
+docs/images/angela-martin.png,png,197,528,rgba,122363,documentation,non concerne,inutilisable
+docs/images/bob-vance.png,png,210,526,rgba,178412,documentation,non concerne,inutilisable
+docs/images/claude-crab.gif,gif,188,130,gif,27360,documentation,non concerne,inutilisable
+docs/images/claudes-turn.gif,gif,760,502,gif,4357824,documentation,non concerne,inutilisable
+docs/images/creed-bratton.png,png,197,528,rgba,123397,documentation,non concerne,inutilisable
+docs/images/david-wallace.png,png,210,526,rgba,180129,documentation,non concerne,inutilisable
+docs/images/dunder-mifflin-day.png,png,1200,896,rgb,1585896,skin Dunder Mifflin,exclu,inutilisable
+docs/images/dunder-mifflin-night.png,png,1200,896,rgb,1557290,skin Dunder Mifflin,exclu,inutilisable
+docs/images/dwight-schrute.png,png,193,527,rgba,122523,documentation,non concerne,inutilisable
+docs/images/entertainment-waiting-tokenreset.png,png,1173,470,rgb,626463,documentation,non concerne,inutilisable
+docs/images/inspector.png,png,1120,740,rgb,566079,documentation,non concerne,inutilisable
+docs/images/jim-halpert.png,png,195,529,rgba,121253,documentation,non concerne,inutilisable
+docs/images/kelly-kapoor.png,png,210,527,rgba,195687,documentation,non concerne,inutilisable
+docs/images/kevin-malone.png,png,208,531,rgba,121843,documentation,non concerne,inutilisable
+docs/images/meters.png,png,1056,682,rgb,652669,documentation,non concerne,inutilisable
+docs/images/michael-scott.png,png,197,527,rgba,123985,documentation,non concerne,inutilisable
+docs/images/mini-claude.png,png,1000,650,rgba,346728,documentation,non concerne,inutilisable
+docs/images/night-mode.png,png,1173,758,rgb,916421,documentation,non concerne,inutilisable
+docs/images/pam-beesly.png,png,196,520,rgba,129747,documentation,non concerne,inutilisable
+docs/images/permission-card.png,png,1120,740,rgb,654496,documentation,non concerne,inutilisable
+docs/images/prod-is-down.gif,gif,760,502,gif,3440526,documentation,non concerne,inutilisable
+docs/images/prop-angela-cat.png,png,180,171,rgba,44761,documentation,non concerne,inutilisable
+docs/images/prop-cpr-mask.png,png,135,170,rgba,39499,documentation,non concerne,inutilisable
+docs/images/prop-dunder-logo.png,png,210,138,rgba,52894,skin Dunder Mifflin,exclu,inutilisable
+docs/images/prop-dundie.png,png,152,242,rgba,41116,documentation,non concerne,inutilisable
+docs/images/prop-finer-things.png,png,236,163,rgba,57446,documentation,non concerne,inutilisable
+docs/images/prop-golden-ticket.png,png,203,175,rgba,66621,documentation,non concerne,inutilisable
+docs/images/prop-jello-stapler.png,png,180,138,rgba,33756,documentation,non concerne,inutilisable
+docs/images/prop-no-god.png,png,130,87,rgba,20244,documentation,non concerne,inutilisable
+docs/images/prop-paper-box.png,png,467,491,rgba,263838,documentation,non concerne,inutilisable
+docs/images/prop-pretzel.png,png,215,140,rgba,66013,documentation,non concerne,inutilisable
+docs/images/prop-prison-mike.png,png,95,81,rgba,11165,documentation,non concerne,inutilisable
+docs/images/prop-schrute-buck.png,png,210,138,rgba,49536,documentation,non concerne,inutilisable
+docs/images/prop-serenity-candle.png,png,144,217,rgba,60163,documentation,non concerne,inutilisable
+docs/images/prop-worlds-best-boss.png,png,189,186,rgba,54133,documentation,non concerne,inutilisable
+docs/images/robert-california.png,png,210,526,rgba,183472,documentation,non concerne,inutilisable
+docs/images/ryan-howard.png,png,197,527,rgba,117950,documentation,non concerne,inutilisable
+docs/images/stanley-hudson.png,png,197,531,rgba,122895,documentation,non concerne,inutilisable
+docs/images/task-board.gif,gif,510,390,gif,2091620,documentation,non concerne,inutilisable
+docs/images/ultracode.svg,svg,,,,986,documentation,non concerne,inutilisable
+electron/assets/icon.png,png,256,256,rgba,1322,icone application,MIT annonce,inutilisable
+electron/assets/tray-16.png,png,16,16,rgba,147,icone application,MIT annonce,inutilisable
+electron/assets/tray-32.png,png,32,32,rgba,167,icone application,MIT annonce,inutilisable
+electron/assets/tray-48.png,png,48,48,rgba,193,icone application,MIT annonce,inutilisable
+electron/assets/trayTemplate.png,png,16,16,rgba,129,icone application,MIT annonce,inutilisable
+electron/assets/trayTemplate@2x.png,png,32,32,rgba,148,icone application,MIT annonce,inutilisable
+public/rooms/office-day-dm.png,png,1200,896,rgb,1585896,skin Dunder Mifflin,exclu,inutilisable
+public/rooms/office-day.png,png,1508,1126,rgb,2006365,salle isometrique,"MIT annonce, provenance a clarifier",inutilisable
+public/rooms/office-night-dm.png,png,1200,896,rgb,1557290,skin Dunder Mifflin,exclu,inutilisable
+public/rooms/office-night.png,png,1508,1126,rgb,1956915,salle isometrique,"MIT annonce, provenance a clarifier",inutilisable
+public/sprites/appliances/coffee-off.png,png,296,378,rgba,162516,objet ou decor,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/appliances/coffee-on.png,png,296,378,rgba,170559,objet ou decor,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/characters/Claude-1-front-left.png,png,432,880,rgba,332457,personnage isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/characters/Claude-1-front-right.png,png,432,880,rgba,345550,personnage isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/characters/Claude-1-rear-left.png,png,432,880,rgba,334097,personnage isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/characters/Claude-1-rear-right.png,png,432,880,rgba,333167,personnage isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/characters/Frontend-dev-1-front-left.png,png,402,845,rgba,328441,personnage isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/characters/Frontend-dev-1-front-right.png,png,402,845,rgba,328482,personnage isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/characters/Frontend-dev-1-rear-left.png,png,402,845,rgba,283195,personnage isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/characters/Frontend-dev-1-rear-right.png,png,402,845,rgba,282652,personnage isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/characters/Helper.png,png,1600,1200,rgb,992017,personnage isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/characters/Me-1-front-left.png,png,450,1024,rgba,299933,personnage isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/characters/Me-1-front-right.png,png,450,1024,rgba,301130,personnage isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/characters/Me-1-rear-left.png,png,450,1024,rgba,274788,personnage isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/characters/Me-1-rear-right.png,png,450,1024,rgba,273882,personnage isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/characters/TEMPLATE.png,png,654,1764,rgba,1105449,personnage isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/characters/dev-1-front-left.png,png,307,862,rgba,296962,personnage isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/characters/dev-1-front-right.png,png,307,862,rgba,297630,personnage isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/characters/dev-1-rear-left.png,png,307,862,rgba,257265,personnage isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/characters/dev-1-rear-right.png,png,307,862,rgba,257110,personnage isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/characters/dev-2-front-left.png,png,374,1029,rgba,377734,personnage isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/characters/dev-2-front-right.png,png,374,1029,rgba,377386,personnage isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/characters/dev-2-rear-left.png,png,374,1029,rgba,354769,personnage isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/characters/dev-2-rear-right.png,png,374,1029,rgba,354679,personnage isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/characters/employee-1-front-left.png,png,432,880,rgba,297168,personnage isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/characters/employee-1-front-right.png,png,432,880,rgba,297056,personnage isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/characters/employee-1-rear-left.png,png,432,880,rgba,282925,personnage isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/characters/employee-1-rear-right.png,png,432,880,rgba,282862,personnage isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/characters/employee-2-front-left.png,png,324,844,rgba,293940,personnage isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/characters/employee-2-front-right.png,png,324,844,rgba,293503,personnage isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/characters/employee-2-rear-left.png,png,324,844,rgba,257498,personnage isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/characters/employee-2-rear-right.png,png,324,844,rgba,257495,personnage isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/characters/employee-3-front-left.png,png,322,912,rgba,315452,personnage isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/characters/employee-3-front-right.png,png,322,912,rgba,316676,personnage isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/characters/employee-3-rear-left.png,png,322,912,rgba,271629,personnage isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/characters/employee-3-rear-right.png,png,322,912,rgba,272152,personnage isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/characters/explore-1-front-left.png,png,368,1024,rgba,377381,personnage isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/characters/explore-1-front-right.png,png,368,1024,rgba,377426,personnage isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/characters/explore-1-rear-left.png,png,368,1024,rgba,353340,personnage isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/characters/explore-1-rear-right.png,png,368,1024,rgba,353463,personnage isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/characters/security-audit-1-front-left.png,png,369,1019,rgba,358561,personnage isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/characters/security-audit-1-front-right.png,png,369,1019,rgba,359107,personnage isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/characters/security-audit-1-rear-left.png,png,369,1019,rgba,317717,personnage isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/characters/security-audit-1-rear-right.png,png,369,1019,rgba,317891,personnage isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/culture/bell.png,png,167,331,rgba,68209,objet ou decor,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/culture/days-last-incident.png,png,1241,1024,rgba,948732,objet ou decor,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/culture/deploying-screen.png,png,852,991,rgba,637557,objet ou decor,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/culture/todo-board.png,png,606,686,rgba,459093,objet ou decor,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/debugger.png,png,307,862,rgba,297630,personnage isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/decoration/ac-wall-unit.png,png,492,380,rgba,207697,objet ou decor,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/decoration/money-tree.png,png,351,531,rgba,202202,objet ou decor,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/decoration/monstera-plant.png,png,394,563,rgba,287348,objet ou decor,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/decoration/printer-broken.png,png,500,500,rgba,240948,objet ou decor,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/decoration/printer-working.png,png,500,500,rgba,232766,objet ou decor,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/decoration/printer.png,png,450,563,rgba,184259,objet ou decor,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/decoration/snake-plant.png,png,347,543,rgba,182647,objet ou decor,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/decoration/white-board.png,png,750,996,rgba,594670,objet ou decor,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/devops.png,png,322,912,rgba,316676,personnage isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/effects/build-failed.png,png,345,176,rgba,60216,effet ou icone,"MIT annonce, provenance a clarifier",adaptable (idee)
+public/sprites/effects/cake.png,png,164,175,rgba,35526,effet ou icone,"MIT annonce, provenance a clarifier",adaptable (idee)
+public/sprites/effects/fire.png,png,164,175,rgba,28962,effet ou icone,"MIT annonce, provenance a clarifier",adaptable (idee)
+public/sprites/effects/github-pr-merge.png,png,450,176,rgba,76419,effet ou icone,"MIT annonce, provenance a clarifier",adaptable (idee)
+public/sprites/effects/glass-water.png,png,164,175,rgba,31026,effet ou icone,"MIT annonce, provenance a clarifier",adaptable (idee)
+public/sprites/effects/monster-energy.png,png,30,63,rgba,3868,effet ou icone,"MIT annonce, provenance a clarifier",adaptable (idee)
+public/sprites/effects/need-coffee.png,png,164,175,rgba,27452,effet ou icone,"MIT annonce, provenance a clarifier",adaptable (idee)
+public/sprites/effects/party.png,png,164,175,rgba,42709,effet ou icone,"MIT annonce, provenance a clarifier",adaptable (idee)
+public/sprites/effects/pizza.png,png,164,175,rgba,33814,effet ou icone,"MIT annonce, provenance a clarifier",adaptable (idee)
+public/sprites/effects/post-it.png,png,164,175,rgba,30116,effet ou icone,"MIT annonce, provenance a clarifier",adaptable (idee)
+public/sprites/effects/redbull-energy.png,png,30,63,rgba,4258,effet ou icone,"MIT annonce, provenance a clarifier",adaptable (idee)
+public/sprites/effects/rocket.png,png,164,175,rgba,36278,effet ou icone,"MIT annonce, provenance a clarifier",adaptable (idee)
+public/sprites/effects/sleeping.png,png,164,175,rgba,22682,effet ou icone,"MIT annonce, provenance a clarifier",adaptable (idee)
+public/sprites/effects/star.png,png,164,175,rgba,28826,effet ou icone,"MIT annonce, provenance a clarifier",adaptable (idee)
+public/sprites/effects/thumb-up.png,png,164,175,rgba,27916,effet ou icone,"MIT annonce, provenance a clarifier",adaptable (idee)
+public/sprites/effects/typing.png,png,164,175,rgba,19190,effet ou icone,"MIT annonce, provenance a clarifier",adaptable (idee)
+public/sprites/effects/watering-can.png,png,164,175,rgba,26278,effet ou icone,"MIT annonce, provenance a clarifier",adaptable (idee)
+public/sprites/frontend.png,png,402,845,rgba,328482,personnage isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/fullstack.png,png,374,1029,rgba,377386,personnage isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/furniture/filling-closed.png,png,312,422,rgba,126897,mobilier isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/furniture/filling-open.png,png,312,422,rgba,157319,mobilier isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/furniture/standing-desk-left-front.png,png,580,728,rgba,422501,mobilier isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/furniture/standing-desk-left-rear.png,png,577,703,rgba,379173,mobilier isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/furniture/standing-desk-right-front.png,png,580,728,rgba,426436,mobilier isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/furniture/standing-desk-right-rear.png,png,576,704,rgba,370984,mobilier isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/manager.png,png,368,1024,rgba,377426,personnage isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/office/cats/cat-bandit.png,png,180,234,rgba,62713,chats du skin,a clarifier,a redessiner
+public/sprites/office/cats/cat-bandits-kittens.png,png,209,108,rgba,40096,chats du skin,a clarifier,a redessiner
+public/sprites/office/cats/cat-comstock-alt.png,png,180,134,rgba,38916,chats du skin,a clarifier,a redessiner
+public/sprites/office/cats/cat-comstock.png,png,165,133,rgba,33797,chats du skin,a clarifier,a redessiner
+public/sprites/office/cats/cat-ember.png,png,173,184,rgba,39706,chats du skin,a clarifier,a redessiner
+public/sprites/office/cats/cat-garbage.png,png,213,182,rgba,54998,chats du skin,a clarifier,a redessiner
+public/sprites/office/cats/cat-mr-ash-alt.png,png,158,176,rgba,40457,chats du skin,a clarifier,a redessiner
+public/sprites/office/cats/cat-mr-ash.png,png,145,175,rgba,33044,chats du skin,a clarifier,a redessiner
+public/sprites/office/cats/cat-phillip.png,png,201,120,rgba,39473,chats du skin,a clarifier,a redessiner
+public/sprites/office/cats/cat-princess-lady-alt.png,png,194,153,rgba,42257,chats du skin,a clarifier,a redessiner
+public/sprites/office/cats/cat-princess-lady.png,png,180,171,rgba,44761,chats du skin,a clarifier,a redessiner
+public/sprites/office/cats/cat-sprinkles.png,png,137,176,rgba,39118,chats du skin,a clarifier,a redessiner
+public/sprites/office/characters/andy-bernard-front-left.png,png,199,527,rgba,129293,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/andy-bernard-front-right.png,png,196,527,rgba,127233,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/andy-bernard-rear-left.png,png,191,525,rgba,113155,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/andy-bernard-rear-right.png,png,191,532,rgba,112622,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/angela-martin-front-left.png,png,199,528,rgba,123090,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/angela-martin-front-right.png,png,197,528,rgba,122363,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/angela-martin-rear-left.png,png,189,518,rgba,112389,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/angela-martin-rear-right.png,png,189,527,rgba,113501,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/bob-vance-front-left.png,png,210,526,rgba,178536,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/bob-vance-front-right.png,png,210,526,rgba,178412,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/bob-vance-rear-left.png,png,205,527,rgba,178928,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/bob-vance-rear-right.png,png,205,527,rgba,179346,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/carol-stills-front-left.png,png,215,527,rgba,195866,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/carol-stills-front-right.png,png,215,527,rgba,195481,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/carol-stills-rear-left.png,png,205,527,rgba,190434,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/carol-stills-rear-right.png,png,205,527,rgba,190898,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/creed-bratton-front-left.png,png,200,529,rgba,125622,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/creed-bratton-front-right.png,png,197,528,rgba,123397,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/creed-bratton-rear-left.png,png,189,523,rgba,109673,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/creed-bratton-rear-right.png,png,189,529,rgba,109368,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/darryl-philbin-front-left.png,png,199,528,rgba,130244,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/darryl-philbin-front-right.png,png,199,528,rgba,129051,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/darryl-philbin-rear-left.png,png,189,525,rgba,112308,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/darryl-philbin-rear-right.png,png,191,528,rgba,111759,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/david-wallace-front-left.png,png,210,526,rgba,180371,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/david-wallace-front-right.png,png,210,526,rgba,180129,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/david-wallace-rear-left.png,png,205,527,rgba,177183,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/david-wallace-rear-right.png,png,205,527,rgba,177370,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/dwight-schrute-front-left.png,png,194,527,rgba,121336,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/dwight-schrute-front-right.png,png,193,527,rgba,122523,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/dwight-schrute-rear-left.png,png,194,528,rgba,93260,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/dwight-schrute-rear-right.png,png,190,528,rgba,91422,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/erin-hannon-front-left.png,png,195,526,rgba,130353,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/erin-hannon-front-right.png,png,195,526,rgba,128579,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/erin-hannon-rear-left.png,png,187,520,rgba,116578,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/erin-hannon-rear-right.png,png,188,526,rgba,116722,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/gabe-lewis-front-left.png,png,210,526,rgba,188312,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/gabe-lewis-front-right.png,png,210,526,rgba,188142,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/gabe-lewis-rear-left.png,png,205,527,rgba,182078,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/gabe-lewis-rear-right.png,png,205,527,rgba,182677,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/holly-flax-front-left.png,png,190,539,rgba,152937,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/holly-flax-front-right.png,png,190,543,rgba,155878,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/holly-flax-rear-left.png,png,190,536,rgba,146278,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/holly-flax-rear-right.png,png,189,539,rgba,146779,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/jan-levinson-front-left.png,png,199,526,rgba,128453,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/jan-levinson-front-right.png,png,196,527,rgba,126955,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/jan-levinson-rear-left.png,png,189,520,rgba,108081,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/jan-levinson-rear-right.png,png,191,527,rgba,110672,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/jim-halpert-front-left.png,png,199,529,rgba,121186,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/jim-halpert-front-right.png,png,195,529,rgba,121253,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/jim-halpert-rear-left.png,png,190,525,rgba,105883,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/jim-halpert-rear-right.png,png,193,532,rgba,105666,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/karen-filippelli-front-left.png,png,192,542,rgba,152637,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/karen-filippelli-front-right.png,png,191,538,rgba,151862,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/karen-filippelli-rear-left.png,png,192,529,rgba,142861,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/karen-filippelli-rear-right.png,png,183,542,rgba,140197,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/kelly-kapoor-front-left.png,png,210,527,rgba,195732,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/kelly-kapoor-front-right.png,png,210,527,rgba,195687,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/kelly-kapoor-rear-left.png,png,205,527,rgba,183681,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/kelly-kapoor-rear-right.png,png,205,527,rgba,183869,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/kevin-malone-front-left.png,png,208,532,rgba,121314,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/kevin-malone-front-right.png,png,208,531,rgba,121843,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/kevin-malone-rear-left.png,png,189,521,rgba,100405,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/kevin-malone-rear-right.png,png,191,532,rgba,100058,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/meredith-palmer-front-left.png,png,198,525,rgba,122601,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/meredith-palmer-front-right.png,png,197,526,rgba,121709,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/meredith-palmer-rear-left.png,png,186,519,rgba,106203,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/meredith-palmer-rear-right.png,png,188,526,rgba,108296,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/michael-scott-front-left.png,png,199,527,rgba,118153,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/michael-scott-front-right.png,png,197,527,rgba,123985,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/michael-scott-rear-left.png,png,189,524,rgba,106213,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/michael-scott-rear-right.png,png,189,527,rgba,106323,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/nellie-bertram-front-left.png,png,187,536,rgba,161547,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/nellie-bertram-front-right.png,png,191,536,rgba,166102,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/nellie-bertram-rear-left.png,png,194,533,rgba,159430,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/nellie-bertram-rear-right.png,png,181,533,rgba,150460,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/oscar-martinez-front-left.png,png,202,547,rgba,131872,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/oscar-martinez-front-right.png,png,201,546,rgba,129428,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/oscar-martinez-rear-left.png,png,193,547,rgba,114745,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/oscar-martinez-rear-right.png,png,189,541,rgba,112083,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/pam-beesly-front-left.png,png,196,520,rgba,131254,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/pam-beesly-front-right.png,png,196,520,rgba,129747,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/pam-beesly-rear-left.png,png,191,521,rgba,114999,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/pam-beesly-rear-right.png,png,187,525,rgba,115180,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/phyllis-vance-front-left.png,png,200,523,rgba,130188,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/phyllis-vance-front-right.png,png,199,524,rgba,128016,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/phyllis-vance-rear-left.png,png,189,520,rgba,108476,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/phyllis-vance-rear-right.png,png,191,524,rgba,109824,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/robert-california-front-left.png,png,210,526,rgba,183896,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/robert-california-front-right.png,png,210,526,rgba,183472,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/robert-california-rear-left.png,png,205,527,rgba,182909,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/robert-california-rear-right.png,png,205,527,rgba,183239,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/roy-anderson-front-left.png,png,202,551,rgba,144297,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/roy-anderson-front-right.png,png,206,552,rgba,145968,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/roy-anderson-rear-left.png,png,183,547,rgba,128404,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/roy-anderson-rear-right.png,png,184,548,rgba,128548,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/ryan-howard-front-left.png,png,200,527,rgba,118690,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/ryan-howard-front-right.png,png,197,527,rgba,117950,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/ryan-howard-rear-left.png,png,190,527,rgba,102859,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/ryan-howard-rear-right.png,png,191,531,rgba,104939,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/stanley-hudson-front-left.png,png,200,531,rgba,121243,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/stanley-hudson-front-right.png,png,197,531,rgba,122895,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/stanley-hudson-rear-left.png,png,189,522,rgba,102034,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/stanley-hudson-rear-right.png,png,191,531,rgba,103307,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/toby-flenderson-front-left.png,png,196,527,rgba,147901,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/toby-flenderson-front-right.png,png,196,527,rgba,147333,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/toby-flenderson-rear-left.png,png,189,520,rgba,133624,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/characters/toby-flenderson-rear-right.png,png,189,520,rgba,133980,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/props/cpr-dummy-mask.png,png,135,170,rgba,39499,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/props/dunder-mifflin-logo.png,png,210,138,rgba,52894,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/props/dunder-mifflin-paper-box.png,png,467,491,rgba,263838,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/props/dundie-award.png,png,152,242,rgba,41116,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/props/finer-things-club.png,png,236,163,rgba,57446,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/props/fire-alarm.png,png,340,189,rgba,95292,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/props/golden-ticket-box.png,png,203,175,rgba,66621,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/props/jello-stapler.png,png,180,138,rgba,33756,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/props/lumpy.png,png,246,108,rgba,43442,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/props/no-god-please-no.png,png,130,87,rgba,20244,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/props/pretzel-day.png,png,215,140,rgba,66013,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/props/prison-mike.png,png,95,81,rgba,11165,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/props/schrute-buck.png,png,210,138,rgba,49536,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/props/serenity-by-jan-candle.png,png,144,217,rgba,60163,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/office/props/worlds-best-boss-mug.png,png,189,186,rgba,54133,skin Dunder Mifflin,exclu,inutilisable
+public/sprites/reviewer.png,png,432,880,rgba,297056,personnage isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/security.png,png,369,1019,rgba,359107,personnage isometrique,"MIT annonce, provenance a clarifier",a redessiner
+public/sprites/tester.png,png,324,844,rgba,293503,personnage isometrique,"MIT annonce, provenance a clarifier",a redessiner
