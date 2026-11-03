@@ -11,6 +11,7 @@ export interface ActivityEvent {
   type: string
   agentId: AgentId | null
   sessionId: SessionId | null
+  runId: string | null
   summary: string | null
 }
 
@@ -21,8 +22,27 @@ export interface LocalTask {
   id: string
   provenance: 'application'
   title: string
+  details: string | null
   status: LocalTaskStatus
   assigneeId: CharacterId | null
   createdAt: string
   updatedAt: string
+}
+
+export interface EventFilter {
+  agentId?: string
+  provenance?: Provenance
+  /** Pagination : événements strictement antérieurs à cet horodatage. */
+  before?: string
+  taskId?: string
+  limit: number
+}
+
+/** Fusionne sans doublon, du plus récent au plus ancien. */
+export function mergeEvents(current: readonly ActivityEvent[], incoming: readonly ActivityEvent[], max = 500): ActivityEvent[] {
+  const byId = new Map(current.map((event) => [event.id, event]))
+  for (const event of incoming) byId.set(event.id, event)
+  return [...byId.values()]
+    .sort((a, b) => b.occurredAt.localeCompare(a.occurredAt) || a.id.localeCompare(b.id))
+    .slice(0, max)
 }

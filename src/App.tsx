@@ -1,15 +1,18 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { VisualState } from './characters/animation'
 import type { ObservedAgentState } from './domain/agents'
 import type { RegistryView } from './domain/registry'
 import { OfficeCanvas, type CastEntry } from './scene/OfficeCanvas'
+import { mergeEvents, type ActivityEvent } from './domain/activity'
+import { ActivityPanel } from './ui/ActivityPanel'
 import { AgentInspector } from './ui/AgentInspector'
 import { ChatPanel } from './ui/ChatPanel'
 import { api, ApiError } from './ui/api'
 import { Login } from './ui/Login'
 import { RegistryPanel } from './ui/RegistryPanel'
+import { TasksPanel } from './ui/TasksPanel'
 
-type Tab = 'registry' | 'inspector' | 'chat'
+type Tab = 'registry' | 'inspector' | 'chat' | 'tasks' | 'activity'
 
 const REFRESH_MS = 15_000
 
@@ -61,12 +64,20 @@ function Office({ canLogout, onSignedOut }: { canLogout: boolean; onSignedOut():
   const [error, setError] = useState<string | null>(null)
   const [tab, setTab] = useState<Tab>('registry')
   const [selected, setSelected] = useState<string | null>(null)
+  const [events, setEvents] = useState<ActivityEvent[]>([])
+
+  const lastRefresh = useRef(0)
 
   const refresh = useCallback(async () => {
+    // Une réponse lente ne doit pas écraser une réponse plus récente.
+    const request = ++lastRefresh.current
     try {
-      setRegistry(await api<RegistryView>('/registry'))
+      const view = await api<RegistryView>('/registry')
+      if (request !== lastRefresh.current) return
+      setRegistry(view)
       setError(null)
     } catch (caught) {
+      if (request !== lastRefresh.current) return
       if (caught instanceof ApiError && caught.status === 401) {
         onSignedOut()
         return
@@ -80,6 +91,18 @@ function Office({ canLogout, onSignedOut }: { canLogout: boolean; onSignedOut():
     const timer = setInterval(() => void refresh(), REFRESH_MS)
     return () => clearInterval(timer)
   }, [refresh])
+
+  const addEvents = useCallback((incoming: ActivityEvent[]) => setEvents((current) => mergeEvents(current, incoming)), [])
+
+  // À chaque (re)connexion, la dernière page rattrape ce que le flux a pu manquer, sans doublon.
+  useEffect(() => {
+    const source = new EventSource('/api/events/stream')
+    source.onopen = () => {
+      api<ActivityEvent[]>('/events?limit=50').then(addEvents, () => undefined)
+    }
+    source.onmessage = (message) => addEvents([JSON.parse(message.data as string) as ActivityEvent])
+    return () => source.close()
+  }, [addEvents])
 
   const cast = useMemo(() => (registry ? castFrom(registry) : []), [registry])
   const select = useCallback((id: string) => {
@@ -102,6 +125,8 @@ function Office({ canLogout, onSignedOut }: { canLogout: boolean; onSignedOut():
             <button type="button" aria-pressed={tab === 'registry'} onClick={() => setTab('registry')}>Registre</button>
             <button type="button" aria-pressed={tab === 'inspector'} onClick={() => setTab('inspector')}>Fiche</button>
             <button type="button" aria-pressed={tab === 'chat'} onClick={() => setTab('chat')}>Chat</button>
+            <button type="button" aria-pressed={tab === 'tasks'} onClick={() => setTab('tasks')}>Tâches</button>
+            <button type="button" aria-pressed={tab === 'activity'} onClick={() => setTab('activity')}>Activité</button>
             {canLogout && (
               <button
                 type="button"
@@ -116,6 +141,8 @@ function Office({ canLogout, onSignedOut }: { canLogout: boolean; onSignedOut():
           {registry && tab === 'registry' && <RegistryPanel registry={registry} onChanged={() => void refresh()} onSelect={select} />}
           {registry && tab === 'inspector' && <AgentInspector registry={registry} characterId={selected} />}
           {registry && tab === 'chat' && <ChatPanel registry={registry} characterId={selected} />}
+          {registry && tab === 'tasks' && <TasksPanel registry={registry} />}
+          {registry && tab === 'activity' && <ActivityPanel registry={registry} events={events} onLoaded={addEvents} />}
         </aside>
       </div>
       <p className="help">Flèches : se déplacer · Clic : aller à une case ou ouvrir une fiche · + et − : zoom · 0 : ajuster</p>

@@ -1,4 +1,3 @@
-import type { ActivityEvent } from './activity'
 import type { AgentDefinition, AgentId, AgentRuntime, SessionId } from './agents'
 import type { Capability } from './provenance'
 
@@ -90,4 +89,3 @@ export interface AgentPlatform {
   listJobs(agentId: AgentId): Promise<Capability<ScheduledJob[]>>
 }
 
-export type { ActivityEvent }

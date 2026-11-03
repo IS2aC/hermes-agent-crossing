@@ -281,6 +281,32 @@ dd {
   font-size: 20px;
 }
 
+.filters {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin: 8px 0;
+  font-size: 12px;
+}
+
+.chip-source-hermes {
+  background: #2f5f8f;
+}
+
+.chip-source-application {
+  background: #5a4a7a;
+}
+
+.chip-source-simulation {
+  background: #8a6a1f;
+}
+
+.task-history {
+  margin: 4px 0 8px;
+  padding-left: 16px;
+  color: var(--muted);
+}
+
 .chat-sessions {
   display: flex;
   flex-direction: column;
