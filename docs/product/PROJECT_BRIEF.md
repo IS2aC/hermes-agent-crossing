@@ -62,7 +62,7 @@ Claude-Office est plus éloigné de la cible que « adapter le moteur » ne le l
 |---|---|---|
 | Rendu | React et DOM, positions en pourcentage (`src/agentManager.ts:14`), pas de moteur de tuiles ni de canvas | L'étape 05 construit un système de grille plus qu'elle n'adapte un moteur |
 | Vue | Isométrique (`README.md:3`, `src/components/Character.tsx:37`) | Contraire à la direction artistique |
-| Déplacement | Bornage à un polygone, sans recherche de chemin (`src/agentManager.ts:17`) | Collisions et navigation à créer |
+| Déplacement | Bornage à un polygone (`src/agentManager.ts:17`) et chemins entre waypoints (`findWaypointPath`), sans collisions sur grille | Collisions et navigation à créer |
 | Personnages | PNG séparés sur 4 directions diagonales, par exemple 307×862 px | Pas des spritesheets de jeu : à redessiner |
 | Chat | Boucle de polling qui lance `claude -p` (`scripts/chat-ai-watcher.sh:209`) | À remplacer entièrement par Hermes |
 | Événements | Hooks Claude Code vers `POST /event` (`server/index.js:1786`) | Source à remplacer ; le pipeline aval est à évaluer |
