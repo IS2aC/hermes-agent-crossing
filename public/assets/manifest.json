@@ -1,0 +1,237 @@
+{
+  "version": 1,
+  "provenance": {
+    "author": "Hermes-Agent-Crossing",
+    "method": "Écrit en code, sans image externe",
+    "source": "tools/art/"
+  },
+  "sprite": {
+    "cell": {
+      "width": 24,
+      "height": 32
+    },
+    "anchor": {
+      "x": 12,
+      "y": 30
+    },
+    "directions": [
+      "down",
+      "left",
+      "right",
+      "up"
+    ],
+    "columns": 4,
+    "animations": {
+      "idle": {
+        "frames": 2,
+        "fps": 2,
+        "firstRow": 0
+      },
+      "walk": {
+        "frames": 4,
+        "fps": 8,
+        "firstRow": 4
+      },
+      "work": {
+        "frames": 4,
+        "fps": 6,
+        "firstRow": 8
+      },
+      "think": {
+        "frames": 4,
+        "fps": 2,
+        "firstRow": 12
+      }
+    }
+  },
+  "characters": {
+    "character.master": {
+      "file": "characters/character-master.png",
+      "displayName": "Master Character"
+    },
+    "character.jarvis": {
+      "file": "characters/character-jarvis.png",
+      "displayName": "JARVIS"
+    },
+    "character.veilleur": {
+      "file": "characters/character-veilleur.png",
+      "displayName": "VEILLEUR"
+    },
+    "character.data-analyst": {
+      "file": "characters/character-data-analyst.png",
+      "displayName": "DATA ANALYST"
+    },
+    "character.devops": {
+      "file": "characters/character-devops.png",
+      "displayName": "DEVOPS"
+    },
+    "character.developer": {
+      "file": "characters/character-developer.png",
+      "displayName": "DEVELOPER"
+    },
+    "character.researcher": {
+      "file": "characters/character-researcher.png",
+      "displayName": "RESEARCHER"
+    },
+    "character.security": {
+      "file": "characters/character-security.png",
+      "displayName": "SECURITY"
+    }
+  },
+  "tiles": {
+    "file": "environment/tiles.png",
+    "size": 16,
+    "ids": {
+      "tile.floor-wood": {
+        "column": 0
+      },
+      "tile.floor-wood-alt": {
+        "column": 1
+      },
+      "tile.floor-carpet": {
+        "column": 2
+      },
+      "tile.wall-top": {
+        "column": 3
+      },
+      "tile.wall-face": {
+        "column": 4
+      },
+      "tile.wall-base": {
+        "column": 5
+      }
+    }
+  },
+  "props": {
+    "file": "environment/props.png",
+    "ids": {
+      "prop.desk": {
+        "x": 0,
+        "y": 0,
+        "width": 32,
+        "height": 28,
+        "footprint": [
+          2,
+          1
+        ],
+        "wall": false
+      },
+      "prop.plant": {
+        "x": 34,
+        "y": 0,
+        "width": 16,
+        "height": 24,
+        "footprint": [
+          1,
+          1
+        ],
+        "wall": false
+      },
+      "prop.bookshelf": {
+        "x": 52,
+        "y": 0,
+        "width": 32,
+        "height": 32,
+        "footprint": [
+          2,
+          1
+        ],
+        "wall": false
+      },
+      "prop.water-cooler": {
+        "x": 86,
+        "y": 0,
+        "width": 16,
+        "height": 28,
+        "footprint": [
+          1,
+          1
+        ],
+        "wall": false
+      },
+      "prop.printer": {
+        "x": 104,
+        "y": 0,
+        "width": 16,
+        "height": 22,
+        "footprint": [
+          1,
+          1
+        ],
+        "wall": false
+      },
+      "prop.coffee-counter": {
+        "x": 122,
+        "y": 0,
+        "width": 32,
+        "height": 28,
+        "footprint": [
+          2,
+          1
+        ],
+        "wall": false
+      },
+      "prop.meeting-table": {
+        "x": 156,
+        "y": 0,
+        "width": 48,
+        "height": 34,
+        "footprint": [
+          3,
+          2
+        ],
+        "wall": false
+      },
+      "prop.sofa": {
+        "x": 206,
+        "y": 0,
+        "width": 48,
+        "height": 24,
+        "footprint": [
+          3,
+          1
+        ],
+        "wall": false
+      },
+      "prop.whiteboard": {
+        "x": 256,
+        "y": 0,
+        "width": 32,
+        "height": 16,
+        "footprint": null,
+        "wall": true
+      },
+      "prop.window": {
+        "x": 290,
+        "y": 0,
+        "width": 32,
+        "height": 14,
+        "footprint": null,
+        "wall": true
+      },
+      "prop.door": {
+        "x": 324,
+        "y": 0,
+        "width": 32,
+        "height": 16,
+        "footprint": null,
+        "wall": true
+      }
+    }
+  },
+  "bubbles": {
+    "file": "effects/bubbles.png",
+    "size": 11,
+    "ids": {
+      "bubble.unknown": {
+        "column": 0
+      },
+      "bubble.thinking": {
+        "column": 1
+      },
+      "bubble.unavailable": {
+        "column": 2
+      }
+    }
+  }
+}

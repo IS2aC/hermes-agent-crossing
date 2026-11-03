@@ -70,3 +70,76 @@ body {
   color: var(--muted);
   font-size: 13px;
 }
+
+.workspace {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+.workspace .office {
+  min-width: 0;
+}
+
+.office-error {
+  position: absolute;
+  inset: 48px 16px auto;
+  margin: 0;
+  padding: 12px;
+  background: #7a2a2a;
+  border-radius: 4px;
+}
+
+.cast-panel {
+  flex: 0 0 240px;
+  padding: 12px 16px;
+  overflow-y: auto;
+  background: var(--surface);
+}
+
+.cast-panel h2 {
+  margin: 0 0 4px;
+  font-size: 15px;
+}
+
+.cast-note {
+  margin: 0 0 12px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.cast-panel ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cast-panel li {
+  margin-bottom: 10px;
+}
+
+.cast-panel label {
+  display: block;
+  margin-bottom: 2px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.cast-panel select {
+  width: 100%;
+  padding: 4px;
+  background: var(--background);
+  color: var(--text);
+  border: 1px solid #50566b;
+  border-radius: 4px;
+}
+
+@media (max-width: 700px) {
+  .workspace {
+    flex-direction: column;
+  }
+
+  .cast-panel {
+    flex: 0 0 35%;
+  }
+}

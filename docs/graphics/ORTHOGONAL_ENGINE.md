@@ -54,6 +54,8 @@ Flèches : déplacement. Clic : aller à une case. `+`, `-`, `0` : zoom. Un band
 
 ![Scène de démonstration](previews/orthogonal-engine-demo.png)
 
+Cette capture montre l'étape 05, avec ses graphismes provisoires. La scène actuelle est décrite dans [ASSET_INTEGRATION.md](ASSET_INTEGRATION.md).
+
 ## Tests
 
 | Commande | Portée |

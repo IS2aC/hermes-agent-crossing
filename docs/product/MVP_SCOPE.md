@@ -32,7 +32,7 @@ Tout le périmètre ci-dessous reste conditionné aux capacités confirmées à 
 | Réponse aux demandes d'approbation depuis le bureau | Schéma incomplet dans la doc publique ; voir la note ci-dessous | V1 |
 | Comptes multiples et rôles | Une seule personne au départ | V1 |
 | Plusieurs salles | La complexité n'apporte pas de valeur au premier usage | V1 |
-| Les 5 rôles restants (DATA ANALYST, DEVOPS, DEVELOPER, RESEARCHER, SECURITY) | Fiches préparées à l'étape 03, production décalée | V1 |
+| Association des 5 rôles restants (DATA ANALYST, DEVOPS, DEVELOPER, RESEARCHER, SECURITY) à de vrais agents | Leurs sprites existent depuis l'étape 06, à coût quasi nul ; seul leur lien avec Hermes est reporté | V1 |
 | Compteurs de coût et de tokens | Source Hermes à confirmer | V1 |
 | Administration des jobs planifiés (cron) | Lecture éventuelle au MVP, actions plus tard | V1 |
 | Mode incident | Dépend de signaux non identifiés côté Hermes | Plus tard |

@@ -13,7 +13,7 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:e2e": "playwright test",
-    "art": "node tools/art/build-master.mjs"
+    "art": "node tools/art/build.mjs"
   },
   "dependencies": {
     "react": "^18.3.1",

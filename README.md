@@ -1,18 +1,50 @@
-# Hermes-Agent-Crossing — Pack de prompts par étape
+# Hermes-Agent-Crossing
+
+Bureau virtuel en pixel art, en vue de dessus, pour observer les agents Hermes et interagir avec eux.
+
+**État actuel :** étapes 00 à 06 réalisées, sur des données simulées. Aucun agent Hermes n'est connecté. Voir les [rapports d'étape](docs/reports) et ce qu'il faut [avant l'étape 07](docs/reports/SUITE_ETAPE_07.md).
+
+## Lancer la démonstration
+
+Node.js 22 ou plus récent est nécessaire.
+
+```bash
+npm install
+```
+
+```bash
+npm run dev
+```
+
+## Vérifier
+
+```bash
+npm test
+```
+
+```bash
+npm run test:e2e
+```
+
+```bash
+npm run build
+```
+
+## Pack de prompts par étape
 
 Ce pack contient 13 prompts Markdown, de l'étape 00 à l'étape 12.
 
-## Ordre d'exécution
+### Ordre d'exécution
 00 Cadrage → 01 Audit Claude-Office → 02 Audit des assets → 03 Character Design System → 04 Architecture → 05 Moteur orthogonal → 06 Assets et animations → 07 Connecteur Hermes → 08 Gestion des agents → 09 Chat → 10 Tâches et événements → 11 Synchronisation des animations → 12 Sécurité et déploiement.
 
-## Mode d'emploi
+### Mode d'emploi
 1. Ouvre le dépôt Claude-Office retenu.
 2. Donne à Claude un seul fichier `PROMPT_ETAPE_XX...md` à la fois.
 3. Exige les livrables et preuves indiqués dans le prompt.
 4. Relis le rapport de sortie et valide explicitement la phase avant de transmettre le prompt suivant.
 5. Si une phase révèle un blocage, demande à Claude de documenter le blocage et de proposer des options ; ne saute pas silencieusement à la phase suivante.
 
-## Rappels essentiels
+### Rappels essentiels
 - Le produit cible une vue pixel-art orthogonale/top-down, pas isométrique.
 - La méthode graphique est Master Character → Character Family : le Master Character doit être validé avant de produire toute la famille.
 - Claude-Office est une base à auditer et adapter, pas à réécrire sans justification.

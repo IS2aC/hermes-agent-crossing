@@ -365,14 +365,18 @@ export function drawFrame(image, cellX, cellY, direction, frame, palette, overla
   const side = direction === 'left' || direction === 'right' ? 'right' : direction
   const layer = (name, y) => {
     const overlay = overlays[name]?.[side]
-    if (overlay) drawGrid(image, overlay, x, cellY + y, palette, mirror)
+    if (overlay) drawGrid(image, overlay.grid ?? overlay, x, cellY + y + (overlay.dy ?? 0), palette, mirror)
   }
   drawGrid(image, legs[frame.legs], x, cellY + LEGS_TOP, palette, mirror)
   layer('legs', LEGS_TOP)
   drawGrid(image, torso[frame.pose], x, cellY + TORSO_TOP + bodyY, palette, mirror)
   layer('torso', TORSO_TOP + bodyY)
+  layer('spikes', headY)
+  layer('bun', headY)
   drawGrid(image, head, x, cellY + headY, palette, mirror)
   layer('head', headY)
+  layer('visor', headY)
+  layer('phones', headY)
 }
 
 /** Construit le spritesheet complet : une ligne par couple animation et direction. */

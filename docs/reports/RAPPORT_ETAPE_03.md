@@ -19,7 +19,7 @@ J'ai créé le personnage modèle, avec 4 directions et 4 animations : repos, ma
 
 ## Preuves
 
-`node tools/art/build-master.mjs` passe tous les contrôles : taille, transparence, couleurs, pixels isolés, pieds alignés. J'ai aussi regardé la planche agrandie, et corrigé un pixel de main qui dépassait.
+`node tools/art/build.mjs` passe tous les contrôles : taille, transparence, couleurs, pixels isolés, pieds alignés. J'ai aussi regardé la planche agrandie, et corrigé un pixel de main qui dépassait.
 
 ## Non vérifié / limites
 
