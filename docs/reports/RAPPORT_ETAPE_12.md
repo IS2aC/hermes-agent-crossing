@@ -1,5 +1,7 @@
 # Rapport — Étape 12 : Sécurité, déploiement et validation finale
 
+> **Mise à jour :** ce rapport décrit l'état au commit `ebed6b1`. Le bureau a changé depuis, ce qui modifie notamment CA-10, CA-11, CA-12 et CA-22, ainsi que les chiffres des tests. Voir le [rapport du changement](RAPPORT_BUREAU_CLAUDE_OFFICE.md). Le verdict ne change pas : **No-Go pour la production.**
+
 ## Recommandation
 
 ### NO-GO pour la production, à ce stade

@@ -1,5 +1,15 @@
 # Intégration des assets
 
+## Bureau par défaut
+
+![Bureau par défaut](previews/office-claude-office.png)
+
+La salle et les sprites de Claude-Office sont dans `public/assets/skin-source/`. `src/scene/sourceSkin.ts` décrit les positions, les poses et la zone de marche, et `src/scene/SourceOfficeCanvas.tsx` les dessine. Le moteur garde ses collisions et son A*, sur une grille invisible posée sur la zone de marche. Voir [ADR-008](../adr/ADR-008-sprites-claude-office.md).
+
+La suite de ce document décrit l'ancien bureau, disponible avec `/?skin=pixel`.
+
+## Ancien bureau
+
 ![Bureau meublé](previews/office-scene.png)
 
 ## Chaîne

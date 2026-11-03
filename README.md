@@ -1,6 +1,6 @@
 # Hermes-Agent-Crossing
 
-Bureau virtuel en pixel art, en vue de dessus, pour observer les agents Hermes et interagir avec eux.
+Bureau virtuel isométrique en pixel art pour observer les agents Hermes et interagir avec eux. La salle et les sprites viennent de [Claude-Office](https://github.com/W17ant/Claude-Office) (licence MIT, voir [ADR-008](docs/adr/ADR-008-sprites-claude-office.md)). L'ancien bureau en vue de dessus reste disponible avec `/?skin=pixel`.
 
 **État actuel :** étapes 00 à 12 réalisées et testées en local, face à un mock et à un faux Hermes écrit d'après le source de la v0.17.0. **Rien n'a encore tourné sur le vrai Hermes ni sur le VPS : recommandation No-Go pour la production** tant que l'essai n'est pas fait. Voir le [rapport final](docs/reports/RAPPORT_ETAPE_12.md) et [la suite](docs/reports/SUITE_VPS.md).
 
@@ -51,6 +51,8 @@ Ce pack contient 13 prompts Markdown, de l'étape 00 à l'étape 12.
 5. Si une phase révèle un blocage, demande à Claude de documenter le blocage et de proposer des options ; ne saute pas silencieusement à la phase suivante.
 
 ### Rappels essentiels
+*Rappels d'origine du pack. Les deux premiers ne valent plus pour le bureau par défaut, depuis [ADR-008](docs/adr/ADR-008-sprites-claude-office.md).*
+
 - Le produit cible une vue pixel-art orthogonale/top-down, pas isométrique.
 - La méthode graphique est Master Character → Character Family : le Master Character doit être validé avant de produire toute la famille.
 - Claude-Office est une base à auditer et adapter, pas à réécrire sans justification.

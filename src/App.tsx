@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { applyHold, decideVisual, emptyTrack, trackRunEvent, type AgentRunTrack, type HeldState, type VisualDecision } from './characters/visualState'
 import type { RegistryView } from './domain/registry'
 import { OfficeCanvas, type CastEntry } from './scene/OfficeCanvas'
+import { SourceOfficeCanvas } from './scene/SourceOfficeCanvas'
 import { mergeEvents, type ActivityEvent } from './domain/activity'
 import { ActivityPanel } from './ui/ActivityPanel'
 import { AgentInspector } from './ui/AgentInspector'
@@ -17,6 +18,9 @@ type Tab = 'registry' | 'inspector' | 'chat' | 'tasks' | 'activity' | 'debug'
 const DECISION_TICK_MS = 500
 
 const REFRESH_MS = 5_000
+
+/** Le bureau utilise la salle et les sprites de Claude-Office ; /?skin=pixel affiche l'ancien bureau en vue de dessus. */
+const SOURCE_SKIN = new URLSearchParams(window.location.search).get('skin') !== 'pixel'
 
 export function App() {
   const [auth, setAuth] = useState<{ authenticated: boolean; authRequired: boolean } | null>(null)
@@ -160,7 +164,9 @@ function Office({ canLogout, onSignedOut }: { canLogout: boolean; onSignedOut():
         </p>
       )}
       <div className="workspace">
-        <OfficeCanvas cast={cast} selectedId={selected} onSelect={select} />
+        {SOURCE_SKIN
+          ? <SourceOfficeCanvas cast={cast} selectedId={selected} onSelect={select} />
+          : <OfficeCanvas cast={cast} selectedId={selected} onSelect={select} />}
         <aside className="side-panel">
           <nav className="tabs" aria-label="Panneaux">
             <button type="button" aria-pressed={tab === 'registry'} onClick={() => setTab('registry')}>Registre</button>
@@ -189,7 +195,11 @@ function Office({ canLogout, onSignedOut }: { canLogout: boolean; onSignedOut():
           {registry && tab === 'debug' && <DebugPanel registry={registry} decisions={decisions} />}
         </aside>
       </div>
-      <p className="help">Flèches : se déplacer · Clic : aller à une case ou ouvrir une fiche · + et − : zoom · 0 : ajuster</p>
+      <p className="help">
+        {SOURCE_SKIN
+          ? 'Flèches : se déplacer · Clic : aller à un endroit ou ouvrir une fiche'
+          : 'Flèches : se déplacer · Clic : aller à une case ou ouvrir une fiche · + et − : zoom · 0 : ajuster'}
+      </p>
     </main>
   )
 }

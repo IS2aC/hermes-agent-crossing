@@ -1,5 +1,7 @@
 # Audit de licence des assets
 
+> **Mise à jour du 2026-11-03 :** l'opérateur a adopté la salle, le mobilier et des personnages par défaut, annoncés sous MIT. La décision ci-dessous n'est donc plus celle du produit, et la provenance reste à clarifier. Voir [ADR-008](../adr/ADR-008-sprites-claude-office.md). L'interdiction du skin *The Office* et des fichiers `Me-*`, `Helper` et `TEMPLATE` reste en vigueur.
+
 Ceci n'est pas un avis juridique. Le classement applique une règle prudente : **sans preuve, on n'intègre pas.**
 
 ## Ce que disent les textes

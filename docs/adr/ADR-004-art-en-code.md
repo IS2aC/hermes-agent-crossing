@@ -1,6 +1,6 @@
 # ADR-004 — Art original écrit en code
 
-**Statut :** acceptée (mandat du 2026-11-03).
+**Statut :** remplacée par [ADR-008](ADR-008-sprites-claude-office.md) pour le bureau par défaut. Cet art reste affiché avec `/?skin=pixel`, et les bulles d'état viennent toujours de lui.
 
 **Contexte.** Aucun asset source n'est retenu (étape 02), et aucun générateur d'images n'est disponible dans cet environnement.
 

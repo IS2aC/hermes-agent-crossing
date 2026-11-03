@@ -2,6 +2,8 @@
 
 Code : `src/engine/`. Il ne connaît ni React, ni le domaine, ni Hermes.
 
+> **Depuis le 2026-11-03**, le bureau par défaut est la salle isométrique de Claude-Office ([ADR-008](../adr/ADR-008-sprites-claude-office.md)). Il utilise la carte, les collisions, l'A*, l'acteur et la boucle de ce moteur, mais pas sa caméra, son rendu ni son zoom. Ceux-ci servent à l'ancien bureau, avec `/?skin=pixel`.
+
 ## Ce qu'il remplace
 
 Il n'y a pas de moteur dans Claude-Office à adapter (voir [audit](../audit/SOURCE_CODE_AUDIT.md)) : des éléments DOM positionnés en pourcentage sur un fond isométrique. Le moteur est donc nouveau. Seule l'idée de trier selon `y` est reprise. Les fonctionnalités du source non reprises sont listées avec leur raison dans la [matrice de réutilisation](../audit/FEATURES_REUSE_MATRIX.md).

@@ -5,7 +5,7 @@ const target = process.env.PREVIEW_PATH
 
 test('capture de la scène', async ({ page }) => {
   test.skip(!target, 'Capture à la demande uniquement')
-  await page.goto('/')
+  await page.goto(process.env.PREVIEW_URL ?? '/')
   await page.getByTestId('office-status').waitFor()
   await page.getByTestId('character-jarvis').getByLabel('Agent associé').selectOption('demo-jarvis')
   await page.getByTestId('character-veilleur').getByLabel('Agent associé').selectOption('demo-veilleur')

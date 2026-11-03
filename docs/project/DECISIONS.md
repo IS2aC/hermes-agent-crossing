@@ -28,6 +28,10 @@ L'opérateur a demandé le 2026-11-03 d'avancer jusqu'à l'étape 06 en appliqua
 | Temps réel | SSE au lieu de WebSocket | 10 |
 | Go/No-Go | No-Go pour la production tant que rien n'a tourné sur le VPS | 12 |
 
+## Changement de décision graphique
+
+Le 2026-11-03, après un essai, l'opérateur a adopté le bureau et les sprites de Claude-Office ([ADR-008](../adr/ADR-008-sprites-claude-office.md)). Cela remplace, pour le bureau par défaut, les lignes « Q5 — Production des sprites », « Assets source », « Style visuel » et « Famille de personnages » ci-dessus. L'ancien bureau reste disponible avec `/?skin=pixel`.
+
 ## Mandat étendu
 
 Le 2026-11-03, l'opérateur a étendu le même mandat jusqu'à l'étape 12 : commit et rapport par étape, options recommandées, sans push.

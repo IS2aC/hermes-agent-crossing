@@ -27,9 +27,9 @@ Le produit est acceptable pour le MVP lorsque tous les critères ci-dessous sont
 
 | ID | Critère | Preuve attendue |
 |---|---|---|
-| CA-10 | La scène est orthogonale, sans asset isométrique ; déplacement, collisions et profondeur fonctionnent | Démonstration, tests |
-| CA-11 | Le rendu reste net aux échelles prises en charge | Procédure de validation visuelle |
-| CA-12 | Tous les personnages dérivent du Master Character validé | Checklist par personnage |
+| CA-10 | Déplacement, collisions et profondeur fonctionnent. *Vue orthogonale retirée du critère le 2026-11-03 : le bureau par défaut est isométrique ([ADR-008](../adr/ADR-008-sprites-claude-office.md))* | Démonstration, tests |
+| CA-11 | Le rendu reste net aux échelles prises en charge. *Ne vaut plus que pour `/?skin=pixel` : le bureau par défaut est lissé* | Procédure de validation visuelle |
+| CA-12 | *Retiré pour le bureau par défaut le 2026-11-03 : ses personnages viennent de Claude-Office. Vaut encore pour `/?skin=pixel`* | Checklist par personnage |
 | CA-13 | Les agents réellement disponibles sont découverts et associables | Démonstration sur instance de test |
 | CA-14 | Une conversation réelle est traçable à un agent et à une session Hermes | Démonstration, journaux |
 | CA-15 | Une reconnexion reprend la bonne session | Test de reconnexion |
@@ -49,9 +49,9 @@ Le produit est acceptable pour le MVP lorsque tous les critères ci-dessous sont
 
 | ID | Critère | Preuve attendue |
 |---|---|---|
-| CA-22 | Chaque asset du build final a une licence ou une provenance établie | Audit, contrôle au build |
+| CA-22 | Chaque asset du build final a une licence ou une provenance établie. *Images de Claude-Office : licence MIT annoncée, provenance à clarifier* | Audit, contrôle au build |
 | CA-23 | Aucun élément exclu par `NOTICE.md` n'est livré | Contrôle au build |
-| CA-24 | La licence MIT de Claude-Office est conservée pour le code réutilisé | Présence du fichier et de la mention |
+| CA-24 | La licence MIT de Claude-Office est conservée pour le code et les images réutilisés | Présence du fichier et de la mention |
 
 ## Infrastructure et exploitation
 

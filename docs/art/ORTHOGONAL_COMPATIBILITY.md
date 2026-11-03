@@ -1,5 +1,7 @@
 # Compatibilité avec la vue orthogonale
 
+> **Correction du 2026-11-03 :** cette matrice ne vaut que pour une scène orthogonale. Elle a conduit à écarter trop vite ces images : dans une scène isométrique, les 4 poses diagonales et la zone de marche de la salle suffisent. Le bureau par défaut les utilise maintenant, voir [ADR-008](../adr/ADR-008-sprites-claude-office.md).
+
 Matrice de décision pour l'étape 03. Le détail par fichier est dans [catalog/asset-inventory.csv](catalog/asset-inventory.csv).
 
 | Catégorie | Fichiers | Compatibilité | Raison |

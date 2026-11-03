@@ -45,7 +45,7 @@ test.describe('scène', () => {
   test.beforeEach(async ({ page }) => {
     errors = []
     page.on('pageerror', (error) => errors.push(error.message))
-    await page.goto('/')
+    await page.goto('/?skin=pixel')
     await expect(page.getByTestId('office-status')).toHaveAttribute('data-scale', /\d+/)
   })
 
@@ -161,14 +161,14 @@ test.describe('scène', () => {
 
 test('signale clairement un échec de chargement', async ({ page }) => {
   await page.route('**/assets/environment/props.png', (route) => route.abort())
-  await page.goto('/')
+  await page.goto('/?skin=pixel')
   await expect(page.getByRole('alert')).toContainText('Impossible de charger les graphismes')
 })
 
 test('n\'appelle aucun service hors de l\'application', async ({ page, baseURL }) => {
   const calls: string[] = []
   page.on('request', (call) => calls.push(call.url()))
-  await page.goto('/')
+  await page.goto('/?skin=pixel')
   await expect(page.getByTestId('office-status')).toHaveAttribute('data-scale', /\d+/)
   expect(calls.length).toBeGreaterThan(0)
   expect(calls.filter((url) => !url.startsWith(baseURL!) && !url.startsWith('data:'))).toEqual([])

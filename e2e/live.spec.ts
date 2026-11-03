@@ -70,8 +70,8 @@ test('ouvre la fiche en cliquant sur le personnage dans le bureau', async ({ pag
   const scale = Number(await status.getAttribute('data-scale'))
   const offsetX = Number(await status.getAttribute('data-offset-x'))
   const offsetY = Number(await status.getAttribute('data-offset-y'))
-  // JARVIS est au poste 1 : x = 3 × 16 + 16, y = 4 × 16 + 8.
-  await page.getByTestId('office-canvas').click({ position: { x: offsetX + 64 * scale, y: offsetY + 62 * scale } })
+  // JARVIS est au poste 1 : x 25,8 %, y 71 % de la salle ; on vise son torse.
+  await page.getByTestId('office-canvas').click({ position: { x: offsetX + 0.258 * 800 * scale, y: offsetY + (0.71 * 600 - 40) * scale } })
   await expect(page.getByTestId('inspector')).toContainText('JARVIS')
 })
 

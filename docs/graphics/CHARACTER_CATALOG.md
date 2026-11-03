@@ -1,5 +1,22 @@
 # Catalogue des personnages
 
+## Bureau par défaut : sprites de Claude-Office
+
+Voir [ADR-008](../adr/ADR-008-sprites-claude-office.md). Chaque personnage a 4 poses diagonales.
+
+| Identifiant | Fichiers (`public/assets/skin-source/characters/`) |
+|---|---|
+| `character.master` (visiteur) | `employee-1-*` |
+| `character.jarvis` | `dev-1-*` |
+| `character.veilleur` | `explore-1-*` |
+| `character.data-analyst` | `employee-2-*` |
+| `character.devops` | `dev-2-*` |
+| `character.developer` | `Frontend-dev-1-*` |
+| `character.researcher` | `employee-3-*` |
+| `character.security` | `security-audit-1-*` |
+
+## Ancien bureau (`/?skin=pixel`) : famille écrite en code
+
 ![Famille](../art/previews/character-family.png)
 
 De gauche à droite, de face et de profil : Master, JARVIS, VEILLEUR, DATA ANALYST, DEVOPS, DEVELOPER, RESEARCHER, SECURITY.

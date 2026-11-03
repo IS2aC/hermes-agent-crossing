@@ -16,7 +16,9 @@ const FORBIDDEN_IN_CLIENT = [
   ['appel de Hermes', /\/v1\/runs/],
   ['clé de type sk-', /\bsk-[A-Za-z0-9]{16,}/],
 ]
-const FORBIDDEN_PATHS = [/office\/characters/, /office\/props/, /dunder/i, /\.env/, /\.map$/]
+const FORBIDDEN_PATHS = [/office\/characters/, /office\/props/, /dunder/i, /\.env/, /\.map$/, /\/Me-\d/, /TEMPLATE/, /Helper/, /-dm\.png$/]
+// Images de Claude-Office sous licence MIT, licence et notice à côté.
+const SOURCE_SKIN = 'assets/skin-source/'
 
 function walk(directory) {
   return readdirSync(directory).flatMap((name) => {
@@ -42,7 +44,7 @@ if (!manifest.provenance?.method?.includes('sans image externe')) problems.push(
 for (const file of files) {
   const path = relative(DIST, file).replaceAll('\\', '/')
   for (const pattern of FORBIDDEN_PATHS) if (pattern.test(path)) problems.push(`Fichier interdit : ${path}`)
-  if (/\.(png|jpe?g|gif|webp|svg)$/i.test(path) && !declared.has(path)) problems.push(`Image hors manifeste : ${path}`)
+  if (/\.(png|jpe?g|gif|webp|svg)$/i.test(path) && !declared.has(path) && !path.startsWith(SOURCE_SKIN)) problems.push(`Image hors manifeste : ${path}`)
   if (/\.(js|css|html|json)$/.test(path)) {
     const content = readFileSync(file, 'utf8')
     for (const [label, pattern] of FORBIDDEN_IN_CLIENT) if (pattern.test(content)) problems.push(`${label} trouvé dans ${path}`)
