@@ -9,7 +9,7 @@ Aucune valeur secrète ici. **À stocker dans Dokploy**, jamais dans Git.
 | `NODE_ENV` | Fixée par l'image | Non | `production` |
 | `HERMES_MODE` | Oui | Non | `live`. `mock` est refusé en production |
 | `HERMES_PROFILES` | En `live` | Non | Tableau JSON : `id`, `name`, `baseUrl`, `keyEnv` |
-| `HERMES_KEY_<PROFIL>` | En `live` | **Oui** | `API_SERVER_KEY` du profil. Le nom est celui donné par `keyEnv` |
+| `HERMES_KEY_<PROFIL>` | En `live` | **Oui** | `API_SERVER_KEY` du profil. Le nom est celui donné par `keyEnv`. `docker-compose.yml` doit aussi le transmettre : JARVIS, VEILLEUR, DESIGNER, DEV_MANAGER, REVIEWER, TESTER et X y figurent |
 | `OPERATOR_PASSWORD_HASH` | En `live` et production | **Oui** | Empreinte du mot de passe |
 | `DATABASE_URL` | En production | **Oui** | Base dédiée sur le PostgreSQL existant |
 | `ALLOWED_ORIGINS` | En production | Non | Par exemple `https://bureau.exemple.fr` |
