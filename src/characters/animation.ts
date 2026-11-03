@@ -5,16 +5,17 @@ import type { Facing } from '../engine/actor'
  * Ce qu'un personnage doit montrer. Le moteur ne décide jamais de cet état,
  * et ce module ne connaît pas Hermes.
  */
-export type VisualState = 'idle' | 'walk' | 'work' | 'think' | 'unknown' | 'unavailable' | 'unbound'
+export type VisualState = 'idle' | 'walk' | 'work' | 'think' | 'unknown' | 'unavailable' | 'unbound' | 'waiting'
 
 const BUBBLES: Partial<Record<VisualState, string>> = {
   think: 'bubble.thinking',
   unknown: 'bubble.unknown',
   unavailable: 'bubble.unavailable',
+  waiting: 'bubble.waiting',
 }
 
 /** Ces états n'ont pas d'animation : ne pas donner l'impression d'une activité. */
-const NEUTRAL_STATES: ReadonlySet<VisualState> = new Set(['unknown', 'unavailable', 'unbound'])
+const NEUTRAL_STATES: ReadonlySet<VisualState> = new Set(['unknown', 'unavailable', 'unbound', 'waiting'])
 
 export interface ResolvedFrame {
   sourceX: number

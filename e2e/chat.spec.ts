@@ -141,3 +141,51 @@ test.describe('tâches et activité', () => {
     await expect(activity).not.toContainText('Réponse simulée')
   })
 })
+
+test.describe('états visuels', () => {
+  test.describe.configure({ mode: 'serial' })
+
+  const debugState = (page: Page, id: string) => page.getByTestId(`debug-state-${id}`)
+
+  test('explique chaque animation, et montre un personnage sans agent comme tel', async ({ page }) => {
+    await page.goto('/')
+    await page.getByRole('button', { name: 'États' }).click()
+    await expect(debugState(page, 'devops')).toHaveText('unbound')
+    await expect(page.getByTestId('debug-devops')).toContainText('Aucun agent associé')
+    await expect(page.getByTestId('office-status')).toHaveAttribute('data-cast', /devops:unbound/)
+  })
+
+  test('passe par attente puis repos, selon les événements du run', async ({ page }) => {
+    await openChatWith(page, 'demo-jarvis')
+    await page.getByLabel('Message').fill('danger')
+    await page.getByRole('button', { name: 'Envoyer' }).click()
+    await expect(page.getByTestId('approval')).toBeVisible()
+    await expect(page.getByTestId('office-status')).toHaveAttribute('data-cast', /jarvis:waiting/)
+
+    await page.getByRole('button', { name: 'États' }).click()
+    await expect(debugState(page, 'jarvis')).toHaveText('waiting')
+    await expect(page.getByTestId('debug-jarvis')).toContainText('approval.request')
+    await expect(page.getByTestId('debug-jarvis')).toContainText('Simulation')
+
+    await page.getByRole('button', { name: 'Chat' }).click()
+    await page.getByTestId('approval').getByRole('button', { name: 'Refuser' }).click()
+    await expect(page.getByTestId('chat')).toContainText('Réponse simulée à : danger')
+    await expect(page.getByTestId('office-status')).toHaveAttribute('data-cast', /jarvis:idle/, { timeout: 8_000 })
+  })
+
+  test('affiche un état inconnu dès la perte du serveur', async ({ page }) => {
+    await page.goto('/')
+    const jarvis = page.getByTestId('character-jarvis')
+    await jarvis.getByLabel('Agent associé').selectOption('demo-veilleur')
+    await expect(jarvis).toContainText('Connecté')
+    await expect(page.getByTestId('office-status')).toHaveAttribute('data-cast', /jarvis:idle/)
+
+    await page.route('**/api/**', (route) => route.abort())
+    await expect(page.getByRole('alert')).toContainText('Connexion au serveur perdue', { timeout: 20_000 })
+    await expect(page.getByTestId('office-status')).toHaveAttribute('data-cast', /jarvis:unknown/)
+    await expect(page.getByTestId('office-status')).toHaveAttribute('data-cast', /devops:unknown/)
+    await page.unroute('**/api/**')
+    await expect(page.getByRole('alert')).toHaveCount(0, { timeout: 20_000 })
+    await jarvis.getByLabel('Agent associé').selectOption('')
+  })
+})

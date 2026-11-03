@@ -227,7 +227,7 @@ export function buildProps() {
   return { image, rects }
 }
 
-export const BUBBLE_NAMES = ['unknown', 'thinking', 'unavailable']
+export const BUBBLE_NAMES = ['unknown', 'thinking', 'unavailable', 'waiting']
 export const BUBBLE_SIZE = 11
 
 export function buildBubbles() {
@@ -248,6 +248,9 @@ export function buildBubbles() {
       rect(image, x + 2, 4, 1, 1, '#50566b')
       rect(image, x + 5, 4, 1, 1, '#50566b')
       rect(image, x + 8, 4, 1, 1, '#50566b')
+    } else if (name === 'waiting') {
+      rect(image, x + 5, 2, 1, 3, '#d97a2b')
+      rect(image, x + 5, 6, 1, 1, '#d97a2b')
     } else {
       rect(image, x + 3, 2, 1, 1, '#c7594b')
       rect(image, x + 7, 2, 1, 1, '#c7594b')

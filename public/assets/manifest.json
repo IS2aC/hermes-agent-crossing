@@ -231,6 +231,9 @@
       },
       "bubble.unavailable": {
         "column": 2
+      },
+      "bubble.waiting": {
+        "column": 3
       }
     }
   }

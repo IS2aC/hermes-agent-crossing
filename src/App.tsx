@@ -1,47 +1,22 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import type { VisualState } from './characters/animation'
-import type { ObservedAgentState } from './domain/agents'
+import { applyHold, decideVisual, emptyTrack, trackRunEvent, type AgentRunTrack, type HeldState, type VisualDecision } from './characters/visualState'
 import type { RegistryView } from './domain/registry'
 import { OfficeCanvas, type CastEntry } from './scene/OfficeCanvas'
 import { mergeEvents, type ActivityEvent } from './domain/activity'
 import { ActivityPanel } from './ui/ActivityPanel'
 import { AgentInspector } from './ui/AgentInspector'
+import { DebugPanel } from './ui/DebugPanel'
 import { ChatPanel } from './ui/ChatPanel'
 import { api, ApiError } from './ui/api'
 import { Login } from './ui/Login'
 import { RegistryPanel } from './ui/RegistryPanel'
 import { TasksPanel } from './ui/TasksPanel'
 
-type Tab = 'registry' | 'inspector' | 'chat' | 'tasks' | 'activity'
+type Tab = 'registry' | 'inspector' | 'chat' | 'tasks' | 'activity' | 'debug'
 
-const REFRESH_MS = 15_000
+const DECISION_TICK_MS = 500
 
-const STATE_TO_VISUAL: Record<ObservedAgentState, VisualState> = {
-  idle: 'idle',
-  working: 'work',
-  thinking: 'think',
-  waiting: 'unknown',
-  error: 'unavailable',
-  unavailable: 'unavailable',
-  unknown: 'unknown',
-}
-
-function castFrom(registry: RegistryView): CastEntry[] {
-  const agents = registry.agents.status === 'available' ? registry.agents.value : []
-  const cast: CastEntry[] = []
-  for (const entry of registry.characters) {
-    if (!entry.profile.placement) continue
-    let state: VisualState = 'unknown'
-    if (entry.link === 'none') state = 'unbound'
-    else if (entry.link === 'unreachable' || entry.link === 'missing') state = 'unavailable'
-    else {
-      const runtime = agents.find((agent) => agent.definition.id === entry.agentId)?.runtime
-      if (runtime?.status === 'available') state = STATE_TO_VISUAL[runtime.value.state.value]
-    }
-    cast.push({ id: entry.profile.id, spriteId: entry.profile.spriteId, tile: { x: entry.profile.placement.tileX, y: entry.profile.placement.tileY }, state })
-  }
-  return cast
-}
+const REFRESH_MS = 5_000
 
 export function App() {
   const [auth, setAuth] = useState<{ authenticated: boolean; authRequired: boolean } | null>(null)
@@ -92,19 +67,81 @@ function Office({ canLogout, onSignedOut }: { canLogout: boolean; onSignedOut():
     return () => clearInterval(timer)
   }, [refresh])
 
-  const addEvents = useCallback((incoming: ActivityEvent[]) => setEvents((current) => mergeEvents(current, incoming)), [])
+  const [tracks, setTracks] = useState<ReadonlyMap<string, AgentRunTrack>>(new Map())
+  const [streamUp, setStreamUp] = useState(true)
+  const [decisions, setDecisions] = useState<ReadonlyMap<string, VisualDecision>>(new Map())
+  const held = useRef(new Map<string, HeldState>())
+  const seenEvents = useRef(new Set<string>())
+
+  const addEvents = useCallback((incoming: ActivityEvent[]) => {
+    setEvents((current) => mergeEvents(current, incoming))
+    // Du plus ancien au plus récent : un événement rejoué après reconnexion n'est appliqué qu'une fois.
+    const fresh = incoming.filter((event) => !seenEvents.current.has(event.id)).sort((a, b) => a.occurredAt.localeCompare(b.occurredAt))
+    for (const event of fresh) seenEvents.current.add(event.id)
+    setTracks((current) => {
+      const next = new Map(current)
+      for (const event of fresh) {
+        if (event.agentId) next.set(event.agentId, trackRunEvent(next.get(event.agentId) ?? emptyTrack(), event))
+      }
+      return next
+    })
+  }, [])
 
   // À chaque (re)connexion, la dernière page rattrape ce que le flux a pu manquer, sans doublon.
   useEffect(() => {
     const source = new EventSource('/api/events/stream')
+    source.onerror = () => setStreamUp(false)
     source.onopen = () => {
+      setStreamUp(true)
       api<ActivityEvent[]>('/events?limit=50').then(addEvents, () => undefined)
     }
     source.onmessage = (message) => addEvents([JSON.parse(message.data as string) as ActivityEvent])
     return () => source.close()
   }, [addEvents])
 
-  const cast = useMemo(() => (registry ? castFrom(registry) : []), [registry])
+  const connected = streamUp && error === null
+
+  useEffect(() => {
+    const decide = () => {
+      if (!registry) return
+      const agents = registry.agents.status === 'available' ? registry.agents.value : []
+      const now = Date.now()
+      const next = new Map<string, VisualDecision>()
+      for (const entry of registry.characters) {
+        if (!entry.profile.placement) continue
+        const agent = agents.find((candidate) => candidate.definition.id === entry.agentId)
+        const decision = decideVisual({
+          connected,
+          link: entry.link,
+          runtime: agent?.runtime ?? null,
+          track: (entry.agentId && tracks.get(entry.agentId)) || emptyTrack(),
+          now,
+        })
+        const state = applyHold(held.current.get(entry.profile.id) ?? null, decision, now)
+        held.current.set(entry.profile.id, state)
+        next.set(entry.profile.id, state.decision)
+      }
+      setDecisions(next)
+    }
+    decide()
+    const timer = setInterval(decide, DECISION_TICK_MS)
+    return () => clearInterval(timer)
+  }, [registry, tracks, connected])
+
+  const cast = useMemo(() => {
+    const entries: CastEntry[] = []
+    for (const entry of registry?.characters ?? []) {
+      if (!entry.profile.placement) continue
+      entries.push({
+        id: entry.profile.id,
+        spriteId: entry.profile.spriteId,
+        tile: { x: entry.profile.placement.tileX, y: entry.profile.placement.tileY },
+        state: decisions.get(entry.profile.id)?.state ?? 'unknown',
+      })
+    }
+    return entries
+  }, [registry, decisions])
+
   const select = useCallback((id: string) => {
     setSelected(id)
     setTab('inspector')
@@ -117,9 +154,13 @@ function Office({ canLogout, onSignedOut }: { canLogout: boolean; onSignedOut():
           Démonstration : données simulées. Aucun agent Hermes n'est connecté.
         </p>
       )}
-      {error && <p className="connection-banner" role="alert">Connexion au serveur perdue : {error}. Les états affichés ne sont plus garantis.</p>}
+      {!connected && (
+        <p className="connection-banner" role="alert">
+          Connexion au serveur perdue{error ? ` : ${error}` : ''}. Les personnages affichent un état inconnu.
+        </p>
+      )}
       <div className="workspace">
-        <OfficeCanvas cast={error ? cast.map((entry) => ({ ...entry, state: 'unknown' })) : cast} selectedId={selected} onSelect={select} />
+        <OfficeCanvas cast={cast} selectedId={selected} onSelect={select} />
         <aside className="side-panel">
           <nav className="tabs" aria-label="Panneaux">
             <button type="button" aria-pressed={tab === 'registry'} onClick={() => setTab('registry')}>Registre</button>
@@ -127,6 +168,7 @@ function Office({ canLogout, onSignedOut }: { canLogout: boolean; onSignedOut():
             <button type="button" aria-pressed={tab === 'chat'} onClick={() => setTab('chat')}>Chat</button>
             <button type="button" aria-pressed={tab === 'tasks'} onClick={() => setTab('tasks')}>Tâches</button>
             <button type="button" aria-pressed={tab === 'activity'} onClick={() => setTab('activity')}>Activité</button>
+            <button type="button" aria-pressed={tab === 'debug'} onClick={() => setTab('debug')}>États</button>
             {canLogout && (
               <button
                 type="button"
@@ -143,6 +185,7 @@ function Office({ canLogout, onSignedOut }: { canLogout: boolean; onSignedOut():
           {registry && tab === 'chat' && <ChatPanel registry={registry} characterId={selected} />}
           {registry && tab === 'tasks' && <TasksPanel registry={registry} />}
           {registry && tab === 'activity' && <ActivityPanel registry={registry} events={events} onLoaded={addEvents} />}
+          {registry && tab === 'debug' && <DebugPanel registry={registry} decisions={decisions} />}
         </aside>
       </div>
       <p className="help">Flèches : se déplacer · Clic : aller à une case ou ouvrir une fiche · + et − : zoom · 0 : ajuster</p>
