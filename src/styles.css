@@ -1,0 +1,72 @@
+:root {
+  color-scheme: dark;
+  --background: #1f2230;
+  --surface: #2b2f40;
+  --text: #eef0f6;
+  --muted: #b5bacb;
+  --warning: #f2c14e;
+  font-family: system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--background);
+  color: var(--text);
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.simulation-banner {
+  margin: 0;
+  padding: 8px 16px;
+  background: var(--warning);
+  color: #1f2230;
+  font-weight: 600;
+  text-align: center;
+}
+
+.office {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+}
+
+.office-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+  cursor: pointer;
+}
+
+.office-status {
+  position: absolute;
+  top: 8px;
+  left: 16px;
+  margin: 0;
+  padding: 4px 8px;
+  background: var(--surface);
+  border-radius: 4px;
+  font-size: 13px;
+}
+
+.help {
+  margin: 0;
+  padding: 8px 16px;
+  color: var(--muted);
+  font-size: 13px;
+}
