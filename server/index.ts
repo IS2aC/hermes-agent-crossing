@@ -6,6 +6,8 @@ import { MockPlatform } from './adapters/mock/platform'
 import { loadConfig } from './config'
 import { createApp } from './http/app'
 import { SessionStore } from './http/auth'
+import { chatRoutes } from './chat/routes'
+import { RunTracker } from './chat/runs'
 import { registryRoutes } from './registry/routes'
 import { PostgresStore } from './storage/postgres'
 import { MemoryStore, type Store } from './storage/store'
@@ -21,18 +23,20 @@ async function main() {
     : new MemoryStore()
   await store.migrate()
 
+  const tracker = new RunTracker(platform)
   const app = createApp({
     config,
     platform,
     sessions: new SessionStore(config.sessionTtlMs),
     staticDir: process.env.STATIC_DIR ?? join(here, '..', 'dist'),
-    routes: [registryRoutes(platform, store)],
+    routes: [registryRoutes(platform, store), chatRoutes(platform, tracker)],
   })
   const server = app.listen(config.port, config.host, () => {
     console.log(`Hermes-Agent-Crossing écoute sur ${config.host}:${config.port} (mode ${config.mode})`)
   })
 
   const shutdown = () => {
+    tracker.stopAll()
     server.close(() => {
       void store.close().finally(() => process.exit(0))
     })

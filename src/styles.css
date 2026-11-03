@@ -281,6 +281,74 @@ dd {
   font-size: 20px;
 }
 
+.chat-sessions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+}
+
+.chat-log {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 12px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.message {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 6px 8px;
+  background: var(--background);
+  border-radius: 4px;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.message-user {
+  border-left: 3px solid var(--warning);
+}
+
+.chat-form {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+}
+
+.chat-form .muted {
+  margin: 0;
+  font-size: 12px;
+}
+
+.approval {
+  margin-bottom: 12px;
+  padding: 10px;
+  border: 2px solid var(--warning);
+  border-radius: 4px;
+  font-size: 13px;
+}
+
+.approval pre {
+  overflow-x: auto;
+  padding: 6px;
+  background: var(--background);
+}
+
+.approval-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.action.danger {
+  border-color: #c7594b;
+}
+
 @media (max-width: 700px) {
   .workspace {
     flex-direction: column;

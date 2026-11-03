@@ -4,11 +4,12 @@ import type { ObservedAgentState } from './domain/agents'
 import type { RegistryView } from './domain/registry'
 import { OfficeCanvas, type CastEntry } from './scene/OfficeCanvas'
 import { AgentInspector } from './ui/AgentInspector'
+import { ChatPanel } from './ui/ChatPanel'
 import { api, ApiError } from './ui/api'
 import { Login } from './ui/Login'
 import { RegistryPanel } from './ui/RegistryPanel'
 
-type Tab = 'registry' | 'inspector'
+type Tab = 'registry' | 'inspector' | 'chat'
 
 const REFRESH_MS = 15_000
 
@@ -100,6 +101,7 @@ function Office({ canLogout, onSignedOut }: { canLogout: boolean; onSignedOut():
           <nav className="tabs" aria-label="Panneaux">
             <button type="button" aria-pressed={tab === 'registry'} onClick={() => setTab('registry')}>Registre</button>
             <button type="button" aria-pressed={tab === 'inspector'} onClick={() => setTab('inspector')}>Fiche</button>
+            <button type="button" aria-pressed={tab === 'chat'} onClick={() => setTab('chat')}>Chat</button>
             {canLogout && (
               <button
                 type="button"
@@ -113,6 +115,7 @@ function Office({ canLogout, onSignedOut }: { canLogout: boolean; onSignedOut():
           {!registry && !error && <p className="muted">Chargement…</p>}
           {registry && tab === 'registry' && <RegistryPanel registry={registry} onChanged={() => void refresh()} onSelect={select} />}
           {registry && tab === 'inspector' && <AgentInspector registry={registry} characterId={selected} />}
+          {registry && tab === 'chat' && <ChatPanel registry={registry} characterId={selected} />}
         </aside>
       </div>
       <p className="help">Flèches : se déplacer · Clic : aller à une case ou ouvrir une fiche · + et − : zoom · 0 : ajuster</p>
