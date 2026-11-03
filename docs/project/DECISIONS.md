@@ -15,12 +15,12 @@ L'opérateur a demandé le 2026-11-03 d'avancer jusqu'à l'étape 06 en appliqua
 | Q6 — Exposition | Accès restreint (VPN ou liste d'autorisation) au MVP. | 04 | Oui |
 | Branche Git | Travail sur `etapes-00-06`, sans toucher à `main` ni pousser. | 00 | Oui |
 
-## Questions restées ouvertes
+## Mandat étendu
 
-Seul l'opérateur peut y répondre, et elles ne bloquent pas les étapes 00 à 06 :
+Le 2026-11-03, l'opérateur a étendu le même mandat jusqu'à l'étape 12 : commit et rapport par étape, options recommandées, sans push.
 
-- **Q2** — Comment accéder à Hermes, et existe-t-il une instance de test ?
-- **Q3** — Que sont réellement JARVIS et VEILLEUR dans Hermes ?
-- **Q7** — Faut-il voir l'activité lancée hors du bureau (Telegram, CLI, cron) ?
+## Réponses de l'opérateur
 
-Elles bloqueront l'étape 07.
+- **Q2 (partielle)** — Hermes Agent v0.17.0, build 2026.6.19, commit `2bd1977d`, Python 3.13.5, projet `/opt/hermes`, binaire `/opt/hermes/.venv/bin/hermes`. Une sauvegarde `/opt/data/backups/hermes-v0.17-20261021-2217.tar.gz` confirme la version. **Pas d'accès au VPS depuis cet environnement, et pas d'instance de test identifiée.**
+- **Q3** — JARVIS et VEILLEUR sont des profils Hermes.
+- **Q7** — Voir l'activité lancée hors du bureau est souhaité, sans être indispensable (« ça ne serait pas mal »).
