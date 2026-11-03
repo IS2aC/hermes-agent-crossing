@@ -258,6 +258,17 @@ describe('API du chat sur Hermes', () => {
     expect(hermes.requests.at(-1)?.path).toBe(`/v1/runs/${body.runId as string}/stop`)
   })
 
+  it('indique le run en cours, puis plus rien une fois terminé', async () => {
+    await request(app).get('/api/agents/jarvis/runs/active').expect(200, 'null')
+    hermes.runs.set('r1', { run_id: 'r1', status: 'running' })
+    hermes.nextRunEvents = [{ event: 'message.delta', delta: 'x' }, { event: 'run.completed', output: 'x' }]
+    const run = tracker.track(JARVIS, 's' as SessionId, 'r1')
+    expect((await request(app).get('/api/agents/jarvis/runs/active')).body).toEqual({ runId: 'r1', sessionId: 's' })
+    expect((await request(app).get('/api/agents/veilleur/runs/active')).body).toBeNull()
+    await tracker.finished(run)
+    expect((await request(app).get('/api/agents/jarvis/runs/active')).body).toBeNull()
+  })
+
   it('refuse un run inconnu ou d\'un autre agent', async () => {
     await request(app).get('/api/agents/jarvis/runs/inconnu/events').expect(404)
     await post('/api/agents/jarvis/runs/inconnu/stop', {}).expect(404)

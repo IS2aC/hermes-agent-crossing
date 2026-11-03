@@ -42,6 +42,11 @@ export class RunTracker {
     return this.runs.get(runId)
   }
 
+  /** Run en cours d'un agent : permet de le reprendre après un rechargement de page. */
+  active(agentId: AgentId): TrackedRun | undefined {
+    return [...this.runs.values()].reverse().find((run) => run.agentId === agentId && !run.finished)
+  }
+
   track(agentId: AgentId, sessionId: SessionId, runId: string): TrackedRun {
     const run: TrackedRun = {
       runId,

@@ -99,6 +99,11 @@ export function chatRoutes(platform: AgentPlatform, tracker: RunTracker, limiter
     }
   })
 
+  router.get('/agents/:agentId/runs/active', (request, response) => {
+    const run = tracker.active(agentId(request.params.agentId))
+    response.json(run ? { runId: run.runId, sessionId: run.sessionId } : null)
+  })
+
   const tracked = (request: { params: Record<string, string | undefined> }, response: Response) => {
     const run = tracker.get(request.params.runId ?? '')
     if (!run || run.agentId !== request.params.agentId) {

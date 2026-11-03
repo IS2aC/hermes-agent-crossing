@@ -32,6 +32,7 @@ function Conversation({ agentId, name, simulated }: { agentId: string; name: str
   const [reconnecting, setReconnecting] = useState(false)
   const [sending, setSending] = useState(false)
   const sourceRef = useRef<EventSource | null>(null)
+  const resumeRef = useRef<{ runId: string; sessionId: string } | null>(null)
 
   const session = sessions.find((candidate) => candidate.id === sessionId) ?? null
   const running = turn !== null && !isTerminal(turn.status)
@@ -55,16 +56,28 @@ function Conversation({ agentId, name, simulated }: { agentId: string; name: str
     }
   }, [base])
 
+  // Un run peut attendre une décision : on le reprend après un rechargement ou un changement de personnage.
   useEffect(() => {
-    void loadSessions()
+    void loadSessions().then(() => api<{ runId: string; sessionId: string } | null>(`${base}/runs/active`)).then((active) => {
+      if (!active) return
+      resumeRef.current = active
+      setSessionId(active.sessionId)
+    }, () => undefined)
     return () => sourceRef.current?.close()
-  }, [loadSessions])
+  }, [base, loadSessions])
 
   useEffect(() => {
-    setTurn(null)
     setError(null)
     if (sessionId) void loadMessages(sessionId)
     else setMessages([])
+    if (resumeRef.current && resumeRef.current.sessionId === sessionId) {
+      follow(resumeRef.current.runId, resumeRef.current.sessionId)
+      resumeRef.current = null
+    } else {
+      setTurn(null)
+    }
+    // `follow` ne dépend que de valeurs stables pour cet agent.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sessionId, loadMessages])
 
   /** Relit l'historique sans rien faire disparaître : ce que Hermes n'a pas encore enregistré reste affiché. */

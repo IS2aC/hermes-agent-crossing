@@ -182,7 +182,8 @@ function Office({ canLogout, onSignedOut }: { canLogout: boolean; onSignedOut():
           {!registry && !error && <p className="muted">Chargement…</p>}
           {registry && tab === 'registry' && <RegistryPanel registry={registry} onChanged={() => void refresh()} onSelect={select} />}
           {registry && tab === 'inspector' && <AgentInspector registry={registry} characterId={selected} />}
-          {registry && tab === 'chat' && <ChatPanel registry={registry} characterId={selected} />}
+          {/* Reste monté : changer d'onglet ne coupe ni le suivi d'une réponse, ni une demande d'autorisation. */}
+          {registry && <div hidden={tab !== 'chat'}><ChatPanel registry={registry} characterId={selected} /></div>}
           {registry && tab === 'tasks' && <TasksPanel registry={registry} />}
           {registry && tab === 'activity' && <ActivityPanel registry={registry} events={events} onLoaded={addEvents} />}
           {registry && tab === 'debug' && <DebugPanel registry={registry} decisions={decisions} />}

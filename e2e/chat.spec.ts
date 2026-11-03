@@ -64,6 +64,29 @@ test.describe('chat simulé', () => {
   })
 })
 
+test.describe('reprise d\'un run en cours', () => {
+  test('une demande d\'autorisation survit au rechargement de la page et au changement d\'onglet', async ({ page }) => {
+    await openChatWith(page, 'demo-jarvis')
+    await page.getByLabel('Message').fill('danger')
+    await page.getByRole('button', { name: 'Envoyer' }).click()
+    await expect(page.getByTestId('approval')).toBeVisible()
+
+    await page.getByRole('button', { name: 'Registre' }).click()
+    await expect(page.getByTestId('approval')).toBeHidden()
+    await page.getByRole('button', { name: 'Chat' }).click()
+    await expect(page.getByTestId('approval')).toBeVisible()
+
+    await page.reload()
+    await page.getByTestId('character-jarvis').getByRole('button', { name: 'JARVIS' }).click()
+    await page.getByRole('button', { name: 'Chat' }).click()
+    const approval = page.getByTestId('approval')
+    await expect(approval).toContainText('commande simulée')
+    await approval.getByRole('button', { name: 'Refuser' }).click()
+    await expect(page.getByTestId('chat')).toContainText('Réponse simulée à : danger')
+    await expect(approval).toHaveCount(0)
+  })
+})
+
 test.describe('chat en mode live, face au faux Hermes', () => {
   test.use({ baseURL: 'http://127.0.0.1:5198' })
   test.describe.configure({ mode: 'serial' })
