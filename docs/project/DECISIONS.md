@@ -10,6 +10,7 @@ L'opérateur a demandé le 2026-11-03 d'avancer jusqu'à l'étape 06 en appliqua
 | Moteur de rendu | Canvas 2D sans moteur de jeu, avec un noyau TypeScript testable sans navigateur. | 04 | Oui, derrière une interface |
 | Fork de Claude-Office | Non : application propre, même stack, import module par module. | 01 | Oui |
 | Assets source | Aucun réutilisé. | 02 | Oui |
+| Style visuel | **Validé par l'opérateur** le 2026-11-03, après la démonstration de l'étape 06. | 06 | Oui |
 | Famille de personnages | Les 7 personnages sont produits à l'étape 06, au lieu de 2 au MVP, car leur coût est quasi nul avec l'art en code. | 06 | Oui |
 | Q6 — Exposition | Accès restreint (VPN ou liste d'autorisation) au MVP. | 04 | Oui |
 | Branche Git | Travail sur `etapes-00-06`, sans toucher à `main` ni pousser. | 00 | Oui |

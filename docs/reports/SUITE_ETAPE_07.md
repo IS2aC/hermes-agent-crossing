@@ -9,5 +9,4 @@ L'étape 07 ne peut pas commencer sans ces informations, que seul l'opérateur p
 ## Autres points à trancher
 
 - **Licence du projet :** le dépôt n'a pas encore de fichier `LICENSE`.
-- **Avis sur le style :** le Master Character peut encore changer à faible coût, avant d'aller plus loin.
 - **Tests de Claude-Office :** ils n'ont pas pu être lancés ici. Si tu veux confirmer l'audit, tu peux autoriser leur exécution dans un environnement isolé.
