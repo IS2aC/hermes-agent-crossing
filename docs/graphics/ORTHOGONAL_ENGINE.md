@@ -46,9 +46,7 @@ Le monde est centré s'il tient dans la vue. Sinon, la caméra suit le personnag
 
 ## Démonstration
 
-```bash
-npm run dev
-```
+Voir le [README](../../README.md) pour lancer l'application.
 
 Flèches : déplacement. Clic : aller à une case. `+`, `-`, `0` : zoom. Un bandeau signale la simulation.
 

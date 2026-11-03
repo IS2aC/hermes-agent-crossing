@@ -8,11 +8,7 @@ Le bureau est maintenant meublé et habité : 7 personnages à leur poste, plus 
 
 ## Pour le voir
 
-```bash
-npm run dev
-```
-
-Puis ouvre l'adresse affichée. Flèches ou clic pour te déplacer, `+` et `-` pour zoomer. Le panneau de droite change l'état de chaque personnage.
+Voir le [README](../../README.md) pour lancer l'application. Flèches ou clic pour te déplacer, `+` et `-` pour zoomer.
 
 ## Ce qui a été fait
 

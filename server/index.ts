@@ -46,6 +46,7 @@ async function main() {
     platform,
     sessions: new SessionStore(config.sessionTtlMs),
     staticDir: process.env.STATIC_DIR ?? join(here, '..', 'dist'),
+    ready: () => store.ping(),
     routes: [registryRoutes(platform, store), chatRoutes(platform, tracker), eventRoutes(store, bus)],
   })
   const server = app.listen(config.port, config.host, () => {

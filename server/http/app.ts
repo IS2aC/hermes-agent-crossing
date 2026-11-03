@@ -20,6 +20,8 @@ export interface AppDependencies {
   /** Routes métier, toutes placées derrière l'authentification. */
   routes?: Router[]
   staticDir?: string
+  /** Vérifie que l'application peut servir, par exemple que sa base répond. */
+  ready?: () => Promise<void>
   loginLimiter?: RateLimiter
 }
 
@@ -39,6 +41,13 @@ export function createApp(dependencies: AppDependencies): Express {
   // Santé publique, volontairement sans aucun détail.
   app.get('/healthz', (_request, response) => {
     response.json({ status: 'ok' })
+  })
+
+  app.get('/readyz', (_request, response) => {
+    Promise.resolve(dependencies.ready?.()).then(
+      () => response.json({ status: 'ok' }),
+      () => response.status(503).json({ status: 'indisponible' }),
+    )
   })
 
   const api = express.Router()

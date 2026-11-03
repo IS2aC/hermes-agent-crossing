@@ -44,7 +44,7 @@ const healthDetailedSchema = z.object({
 }).passthrough()
 const capabilitiesSchema = z.object({
   model: z.string().nullish(),
-  features: z.record(z.unknown()).default({}),
+  features: z.record(z.string(), z.unknown()).default({}),
 }).passthrough()
 export const sessionSchema = z.object({
   id: z.string(),
@@ -167,7 +167,7 @@ export class HermesClient {
   }
 
   /** Seules les lectures sont retentées : une écriture pourrait agir deux fois. */
-  private async read<T>(path: string, schema: z.ZodType<T, z.ZodTypeDef, unknown>): Promise<T> {
+  private async read<T>(path: string, schema: z.ZodType<T>): Promise<T> {
     let attempt = 0
     for (;;) {
       try {
@@ -182,11 +182,11 @@ export class HermesClient {
     }
   }
 
-  private async write<T>(method: string, path: string, body: unknown, schema: z.ZodType<T, z.ZodTypeDef, unknown>): Promise<T> {
+  private async write<T>(method: string, path: string, body: unknown, schema: z.ZodType<T>): Promise<T> {
     return this.parse(await this.send(method, path, body), schema, path)
   }
 
-  private async parse<T>(response: Response, schema: z.ZodType<T, z.ZodTypeDef, unknown>, path: string): Promise<T> {
+  private async parse<T>(response: Response, schema: z.ZodType<T>, path: string): Promise<T> {
     let payload: unknown
     try {
       payload = await response.json()

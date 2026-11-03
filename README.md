@@ -2,7 +2,7 @@
 
 Bureau virtuel en pixel art, en vue de dessus, pour observer les agents Hermes et interagir avec eux.
 
-**État actuel :** étapes 00 à 06 réalisées, sur des données simulées. Aucun agent Hermes n'est connecté. Voir les [rapports d'étape](docs/reports) et ce qu'il faut [avant l'étape 07](docs/reports/SUITE_ETAPE_07.md).
+**État actuel :** étapes 00 à 12 réalisées et testées en local, face à un mock et à un faux Hermes écrit d'après le source de la v0.17.0. **Rien n'a encore tourné sur le vrai Hermes ni sur le VPS : recommandation No-Go pour la production** tant que l'essai n'est pas fait. Voir le [rapport final](docs/reports/RAPPORT_ETAPE_12.md) et [la suite](docs/reports/SUITE_VPS.md).
 
 ## Lancer la démonstration
 
@@ -13,8 +13,14 @@ npm install
 ```
 
 ```bash
-npm run dev
+npm run build
 ```
+
+```bash
+HERMES_MODE=mock npm start
+```
+
+Puis ouvre `http://127.0.0.1:3000`. Le mode mock est signalé à l'écran. Pour développer l'interface, lance `HERMES_MODE=mock npm run server`, puis `npm run dev`.
 
 ## Vérifier
 
@@ -27,7 +33,7 @@ npm run test:e2e
 ```
 
 ```bash
-npm run build
+npm run build && npm run check:build
 ```
 
 ## Pack de prompts par étape

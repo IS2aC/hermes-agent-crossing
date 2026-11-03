@@ -15,6 +15,19 @@ L'opérateur a demandé le 2026-11-03 d'avancer jusqu'à l'étape 06 en appliqua
 | Q6 — Exposition | Accès restreint (VPN ou liste d'autorisation) au MVP. | 04 | Oui |
 | Branche Git | Travail sur `etapes-00-06`, sans toucher à `main` ni pousser. | 00 | Oui |
 
+## Arbitrages des étapes 07 à 12
+
+| Sujet | Décision | Étape |
+|---|---|---|
+| Source de vérité sur Hermes | Le code source au commit installé, plutôt que la documentation web, qui décrit une version plus récente | 07 |
+| Chat | Runs Hermes, seuls à offrir l'arrêt et les autorisations en v0.17 | 09 |
+| Sessions d'autres surfaces | Lecture seule, imposée par le backend | 09 |
+| Autorisations | Une seule fois ou refus. Jamais de droit durable | 09 |
+| Profils | Déclarés dans la configuration, car Hermes ne les expose pas | 08 |
+| Activité externe | Relecture toutes les 15 s, résultat marqué comme déduit | 10 |
+| Temps réel | SSE au lieu de WebSocket | 10 |
+| Go/No-Go | No-Go pour la production tant que rien n'a tourné sur le VPS | 12 |
+
 ## Mandat étendu
 
 Le 2026-11-03, l'opérateur a étendu le même mandat jusqu'à l'étape 12 : commit et rapport par étape, options recommandées, sans push.

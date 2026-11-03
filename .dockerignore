@@ -1,0 +1,12 @@
+node_modules
+dist
+dist-server
+.git
+.env
+.env.*
+docs
+Hermes-Agent-Crossing_Prompts
+e2e
+tests
+test-results
+playwright-report

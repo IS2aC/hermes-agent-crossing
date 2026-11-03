@@ -95,6 +95,19 @@ describe('accès HTTP', () => {
     expect(response.body).toEqual({ status: 'ok' })
   })
 
+  it('signale que l\'application n\'est pas prête, sans détail', async () => {
+    const resolved = config()
+    const failing = createApp({
+      config: resolved,
+      platform: new MockPlatform(1),
+      sessions: new SessionStore(60_000),
+      ready: () => Promise.reject(new Error('mot de passe de base visible')),
+    })
+    const response = await request(failing).get('/readyz').expect(503)
+    expect(JSON.stringify(response.body)).not.toContain('mot de passe')
+    await request(build()).get('/readyz').expect(200)
+  })
+
   it('refuse les routes sans connexion', async () => {
     await request(build()).get('/api/status').expect(401)
   })
@@ -155,6 +168,7 @@ describe('accès HTTP', () => {
   it('pose les en-têtes de sécurité', async () => {
     const response = await request(build()).get('/healthz')
     expect(response.headers['content-security-policy']).toContain("default-src 'self'")
+    expect(response.headers['content-security-policy']).not.toContain('unsafe')
     expect(response.headers['x-content-type-options']).toBe('nosniff')
     expect(response.headers['x-frame-options']).toBe('DENY')
     expect(response.headers['x-powered-by']).toBeUndefined()

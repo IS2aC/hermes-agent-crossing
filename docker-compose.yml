@@ -1,0 +1,40 @@
+# Pour Dokploy. N'ajoute aucun service existant : Hermes, PostgreSQL et Traefik restent ceux du VPS.
+# Aucun port n'est publié : seul Traefik atteint l'application.
+services:
+  hermes-agent-crossing:
+    build: .
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      HERMES_MODE: live
+      HERMES_PROFILES: ${HERMES_PROFILES:?}
+      HERMES_KEY_JARVIS: ${HERMES_KEY_JARVIS:?}
+      HERMES_KEY_VEILLEUR: ${HERMES_KEY_VEILLEUR:?}
+      OPERATOR_PASSWORD_HASH: ${OPERATOR_PASSWORD_HASH:?}
+      DATABASE_URL: ${DATABASE_URL:?}
+      ALLOWED_ORIGINS: https://${HAC_DOMAIN:?}
+    networks:
+      - dokploy-network
+      - hermes-internal
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.hac.rule=Host(`${HAC_DOMAIN:?}`)
+      - traefik.http.routers.hac.entrypoints=websecure
+      - traefik.http.routers.hac.tls.certresolver=${HAC_CERT_RESOLVER:-letsencrypt}
+      - traefik.http.routers.hac.middlewares=hac-allowlist
+      - traefik.http.middlewares.hac-allowlist.ipallowlist.sourcerange=${HAC_ALLOWED_IPS:?}
+      - traefik.http.services.hac.loadbalancer.server.port=3000
+
+networks:
+  dokploy-network:
+    external: true
+  # Réseau déjà existant de Hermes et de PostgreSQL. Son nom réel est à vérifier sur le VPS.
+  hermes-internal:
+    external: true
+    name: ${HERMES_NETWORK:?}

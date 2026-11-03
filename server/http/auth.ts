@@ -119,8 +119,8 @@ export function securityHeaders(): RequestHandler {
     response.setHeader('Content-Security-Policy', [
       "default-src 'self'",
       "img-src 'self' data:",
-      "style-src 'self' 'unsafe-inline'",
-      "connect-src 'self' ws: wss:",
+      "style-src 'self'",
+      "connect-src 'self'",
       "object-src 'none'",
       "base-uri 'none'",
       "frame-ancestors 'none'",
